@@ -31,24 +31,16 @@ class DemandRegistrationForm extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         const data = new FormData(event.target);
-        console.log(data);
-        console.log(data.get('fullname'));
-        console.log(data.keys());
-        console.log(event.target.elements);
-        /**
-         * Retrieves input data from a form and returns it as a JSON object.
-         * @param  {HTMLFormControlsCollection} elements  the form elements
-         * @return {Object}                               form data as an object literal
-         */
+
         const formToJSON = elements => [].reduce.call(elements, (data2, element) => {
             data2[element.name] = element.value;
             return data2;
         }, {});
-        console.log(formToJSON(event.target.elements));
+        console.log(JSON.stringify(formToJSON(event.target.elements)));
 
         fetch('https://us-central1-harvestor-f8623.cloudfunctions.net/insertIntoDB/poptavka', {
             method: 'POST',
-            body: formToJSON(event.target.elements),
+            body: JSON.stringify(formToJSON(event.target.elements)),
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
