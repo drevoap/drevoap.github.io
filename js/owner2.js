@@ -408,9 +408,17 @@ class DemandRegistrationForm extends React.Component {
 
                 <h3>Údaje o lese</h3>
                 <div className="row form-group">
-                    <div className="col-md-12">
-                        <label className="font-weight-bold" htmlFor="location">Location *</label>
-                        <input id="location" name="location" type="hidden"/>
+                    <div className="col-md-12 mb-3 mb-md-0">
+                        <label className="font-weight-bold" htmlFor="location">Místo těžby *</label>
+                        <input type="text" id="location" name="location" className={this.getClassname('location')}
+                               disabled={true} placeholder="Místo zvolíte kliknutím na mapu"/>
+                        <div className="valid-feedback">
+                            Děkujeme za vyplnění
+                        </div>
+                        <div className="invalid-feedback">
+                            {this.state.errors.location}
+                        </div>
+
 
                         <div id="mapid" style={mapstyle}></div>
                     </div>
@@ -481,6 +489,7 @@ function onMapClick(e) {
     harvestmarker = L.marker(e.latlng).addTo(fullmap);
     harvestmarker.bindPopup("Místo k těžbě.").openPopup();
     $('#location').val(e.latlng);
+    document.getElementById("location").className = "form-control is-valid";
 }
 
 fullmap.on('click', onMapClick);
