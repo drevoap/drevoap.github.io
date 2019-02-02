@@ -1,12 +1,3 @@
-const Button = (props) => {
-    // console.log(props.style);
-    return(
-        <button
-            className = {props.type=='primary'? 'btn btn-primary' : 'btn btn-secondary'}
-            onClick= {props.action} >
-            {props.title}
-        </button>)
-};
 
 const mapstyle = {
     width: '600px',
@@ -128,10 +119,8 @@ class DemandRegistrationForm extends React.Component {
             }
         };
 
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
-
-    /* This lifecycle hook gets executed when the component mounts */
 
 
     handleUserInput (event) {
@@ -152,105 +141,85 @@ class DemandRegistrationForm extends React.Component {
                 var emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
                 if (value) {
                     if (!emailValid) {
-                        this.setState(prevState => ({ errors :
-                                {...prevState.errors, [fieldName]: 'Email není validní.'}
-                        }));
+                        this.state.errors[fieldName] = 'Email není validní.';
                         console.log('Email nevalidni');
                     } else {
-                        this.setState(prevState => ({ errors :
-                                {...prevState.errors, [fieldName]: null}
-                        }));
+                        this.state.errors[fieldName] = null;
                         console.log('Email validni');
                     }
                 } else {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: 'Email musí být vyplněn.'}
-                    }));
+                    this.state.errors[fieldName] = 'Email musí být vyplněn.';
                     console.log('Email prazdny');
                 }
                 break;
             case 'fullname':
                 this.state.validated.fullname = true;
                 if (value) {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: null}
-                    }));
+                    this.state.errors[fieldName] = null;
                     console.log('Fullname vyplnen');
                 } else {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: 'Název/jméno musí být vyplněno.'}
-                    }));
+                    this.state.errors[fieldName] = 'Název/jméno musí být vyplněno.';
                     console.log('Fullname prazdny');
                 }
                 break;
             case 'street':
                 this.state.validated.street = true;
                 if (value) {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: null}
-                    }));
+                    this.state.errors[fieldName] = null;
                     console.log('Street vyplnen');
                 } else {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: 'Ulice musí být vyplněna.'}
-                    }));
+                    this.state.errors[fieldName] =  'Ulice musí být vyplněna.';
                     console.log('Street prazdny');
                 }
                 break;
             case 'city':
                 this.state.validated.city = true;
                 if (value) {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: null}
-                    }));
+                    this.state.errors[fieldName] = null;
                     console.log('City vyplnen');
                 } else {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: 'Město musí být vyplněno.'}
-                    }));
+                    this.state.errors[fieldName] =  'Město musí být vyplněno.';
                     console.log('City prazdny');
                 }
                 break;
             case 'zip':
                 this.state.validated.zip = true;
                 if (value) {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: null}
-                    }));
+                    this.state.errors[fieldName] = null;
                     console.log('Zip vyplnen');
                 } else {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: 'PSČ musí být vyplněno.'}
-                    }));
+                    this.state.errors[fieldName] = 'PSČ musí být vyplněno.';
                     console.log('Zip prazdny');
                 }
                 break;
             case 'contact':
                 this.state.validated.contact = true;
                 if (value) {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: null}
-                    }));
+                    this.state.errors[fieldName] = null;
                     console.log('Contact vyplnen');
                 } else {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: 'Jméno kontaktní osoby musí být vyplněno.'}
-                    }));
+                    this.state.errors[fieldName] = 'Jméno kontaktní osoby musí být vyplněno.';
                     console.log('Contact prazdny');
                 }
                 break;
             case 'phone':
                 this.state.validated.phone = true;
                 if (value) {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: null}
-                    }));
+                    this.state.errors[fieldName] = null;
                     console.log('Phone vyplnen');
                 } else {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: 'Telefon musí být vyplněn.'}
-                    }));
+                    this.state.errors[fieldName] = 'Telefon musí být vyplněn.';
                     console.log('Phone prazdny');
+                }
+                break;
+            case 'location':
+                this.state.validated.location = true;
+                if (value) {
+                    this.state.errors[fieldName] = null;
+                    console.log('Misto tezby vyplneno');
+                } else {
+                    this.state.errors[fieldName] = 'Místo těžby musí být vyplněno.';
+                    console.log('Misto tezby prazdne');
                 }
                 break;
             default:
@@ -276,22 +245,56 @@ class DemandRegistrationForm extends React.Component {
     //     )
     // }
 
-    handleFormSubmit(e) {
-        e.preventDefault();
-        let demandForm = this.state.demand;
+    // handleFormSubmit(e) {
+    //     e.preventDefault();
+    //     let demandForm = this.state.demand;
+    //
+    //     fetch('http://example.com',{
+    //         method: "POST",
+    //         body: JSON.stringify(demandForm),
+    //         headers: {
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json'
+    //         },
+    //     }).then(response => {
+    //         response.json().then(data =>{
+    //             console.log("Successful" + data);
+    //         })
+    //     })
+    // }
 
-        fetch('http://example.com',{
-            method: "POST",
-            body: JSON.stringify(demandForm),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-        }).then(response => {
-            response.json().then(data =>{
-                console.log("Successful" + data);
-            })
-        })
+    handleSubmit(event) {
+        event.preventDefault();
+        this.state.demand.location = document.getElementById("location").value;
+        let demandForm = this.state.demand;
+        for (var demandField in demandForm) {
+            this.validateField(demandField, this.state.demand[demandField]);
+        }
+
+        let form_valid = true;
+        let errors = this.state.errors;
+        for (var errorsField in errors) {
+            if (this.state.errors[errorsField]) {
+                form_valid = false;
+                console.log("Nalezen nevalidni vstup s hlaskou: " + this.state.errors[errorsField]);
+            }
+        }
+
+        if (form_valid) {
+
+            console.log(JSON.stringify(demandForm));
+
+            fetch('https://us-central1-harvestor-f8623.cloudfunctions.net/insertIntoDB/poptavka', {
+                method: 'POST',
+                body: JSON.stringify(demandForm),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+        }
+
+
     }
 
     getClassname(fieldname) {
@@ -309,7 +312,7 @@ class DemandRegistrationForm extends React.Component {
     render() {
         return (
 
-            <form onSubmit={this.handleFormSubmit} className="p-5 bg-white">
+            <form onSubmit={this.handleSubmit} className="p-5 bg-white">
 
                 <h3>Vlastník lesa</h3>
                 <DemandRegistrationTextInput id={'fullname'} text={'Jméno/název vlastníka'} mandatory={true}
@@ -411,18 +414,11 @@ class DemandRegistrationForm extends React.Component {
                     {/*handleChange={this.handleTextArea}*/}
                     {/*placeholder={'Describe your past experience and skills'} />/!* About you *!/*/}
 
-                <Button
-                    action = {this.handleFormSubmit}
-                    type = {'primary'}
-                    title = {'Submit'}
-                /> { /*Submit */ }
-
-                {/*<Button*/}
-                    {/*action = {this.handleClearForm}*/}
-                    {/*type = {'secondary'}*/}
-                    {/*title = {'Clear'}*/}
-                    {/*style={buttonStyle}*/}
-                {/*/> /!* Clear the form *!/*/}
+                <div className="row form-group">
+                    <div className="col-md-12">
+                        <input type="submit" value="Send" className="btn btn-primary  py-2 px-4 rounded-0"/>
+                    </div>
+                </div>
 
             </form>
 
@@ -444,7 +440,6 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
 }).addTo(fullmap);
 
 function onMapClick(e) {
-    // alert("You clicked the map at " + e.latlng);
     if (harvestmarker) {
         fullmap.removeLayer(harvestmarker);
     }
@@ -452,19 +447,6 @@ function onMapClick(e) {
     harvestmarker = L.marker(e.latlng).addTo(fullmap);
     harvestmarker.bindPopup("Místo k těžbě.").openPopup();
     $('#location').val(e.latlng);
-
-    // this.state.demand.location = e.latlng;
-    // this.setState(prevState => ({ demand :
-    //         {...prevState.demand, location: e.latlng}
-    // }), () => { this.validateField(location, e.latlng) });
-
-    // var evt = document.createEvent("HTMLEvents");
-    // evt.initEvent("change", false, true);
-    // document.getElementById('location').dispatchEvent(evt);
-    // document.getElementById('location').dispatchEvent("onchange"); //dispatchEvent(new Event('change'));
-    // $('#location').change();
-    // var event = new Event('input', { bubbles: true });
-    // $('#location').dispatchEvent(event);
 }
 
 fullmap.on('click', onMapClick);
