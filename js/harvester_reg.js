@@ -93,7 +93,7 @@ class HarvesterRegistrationForm extends React.Component {
                 { label: "30 km", value: "30"},
                 { label: "50 km", value: "50"},
                 { label: "100 km", value: "100"},
-                { label: "Neomezeno", value: "Neomezeno"}
+                { label: "Neomezeno", value: "250"}
             ],
 
             // slouzi k ulozeni chybove hlasky pro stranku
@@ -149,6 +149,20 @@ class HarvesterRegistrationForm extends React.Component {
         this.setState(prevState => ({ harvester :
                 {...prevState.harvester, [name]: value}
         }), () => { this.validateField(name, value) });
+
+        if (name === 'range') {
+            if (harvestmarker) {
+                fullmap.removeLayer(harvestcircle);
+                var km = value * 1000;
+
+                harvestcircle = L.circle(harvestmarker.getLatLng(), {
+                    color: 'red',
+                    fillColor: '#f03',
+                    fillOpacity: 0.2,
+                    radius: km
+                }).addTo(fullmap);
+            }
+        }
     }
 
     validateField(fieldName, value) {
@@ -507,6 +521,7 @@ ReactDOM.render(<HarvesterRegistrationForm/>, document.getElementById('harvester
 
 var fullmap = L.map('mapid').setView([50.0871, 14.4175], 7);
 var harvestmarker;
+var harvestcircle;
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
     maxZoom: 18,
@@ -519,12 +534,21 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
 function onMapClick(e) {
     if (harvestmarker) {
         fullmap.removeLayer(harvestmarker);
+        fullmap.removeLayer(harvestcircle);
     }
 
     harvestmarker = L.marker(e.latlng).addTo(fullmap);
     harvestmarker.bindPopup("Oblast zájmu.").openPopup();
     $('#location').val(e.latlng);
     document.getElementById("location").className = "form-control is-valid";
+
+    var km = $('#range').val() * 1000;
+    harvestcircle = L.circle(e.latlng, {
+        color: 'red',
+        fillColor: '#f03',
+        fillOpacity: 0.2,
+        radius: km
+    }).addTo(fullmap);
 }
 
 fullmap.on('click', onMapClick);
