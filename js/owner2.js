@@ -326,6 +326,18 @@ class DemandRegistrationForm extends React.Component {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 }
+            }).then(response => {
+                console.log(response.status);
+                if (response.status === 200) {
+                    // redirect na dekuji stranku
+                    window.location.href = 'registration_ok.html';
+                } else {
+                    // redirect na faild stranku
+                    window.location.href = 'registration_nok.html';
+                }
+            }).catch((error) => {
+                // totalni selhani
+                window.location.href = 'registration_nok.html';
             });
         }
 
