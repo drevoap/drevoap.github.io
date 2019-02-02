@@ -8,24 +8,10 @@ const Button = (props) => {
         </button>)
 };
 
-// class DemandRegistrationMap extends React.Component {
-//     componentDidMount() {
-//         // create map
-//         this.map = L.map('map', {
-//             center: [50.0871, 14.4175],
-//             zoom: 7,
-//             layers: [
-//                 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-//                     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-//                 }),
-//             ]
-//         });
-//     }
-//     render() {
-//         return <div id="map"></div>
-//     }
-// }
-
+const mapstyle = {
+    width: '600px',
+    height: '400px'
+};
 
 class DemandRegistrationSelectBox extends React.Component {
     render() {
@@ -386,25 +372,10 @@ class DemandRegistrationForm extends React.Component {
                 <h3>Údaje o lese</h3>
                 <div className="row form-group">
                     <div className="col-md-12">
-                        {/*<label className="font-weight-bold" htmlFor="location">Místo těžby *</label>*/}
-                        {/*<input type="text" id="location" name="location" className="form-control"*/}
-                               {/*placeholder="Souřadnice se vyplní po kliknutí na mapu"*/}
-                               {/*onChange={(event) => this.handleUserInput(event)}/>*/}
-                        {/*<DemandRegistrationTextInput id={'location'} text={'Místo těžby'} mandatory={true}*/}
-                                                     {/*onchange={(event) => this.handleUserInput(event)}*/}
-                                                     {/*valid={'Děkujeme za vyplnění'}*/}
-                                                     {/*invalid={this.state.errors.location}*/}
-                                                     {/*classname={this.getClassname('location')}/>*/}
-                        {/*<div className="valid-feedback">*/}
-                            {/*'Děkujeme za vyplnění'*/}
-                        {/*</div>*/}
-                        {/*<div className="invalid-feedback">*/}
-                            {/*{this.state.errors.location}*/}
-                        {/*</div>*/}
+                        <label className="font-weight-bold" htmlFor="location">Location *</label>
+                        <input id="location" name="location" type="hidden"/>
 
-                        <div id="mapid" style={this.mapstyle}></div>
-                        {/*<DemandRegistrationMap />*/}
-
+                        <div id="mapid" style={mapstyle}></div>
                     </div>
                 </div>
 
@@ -494,7 +465,6 @@ function onMapClick(e) {
     // $('#location').change();
     // var event = new Event('input', { bubbles: true });
     // $('#location').dispatchEvent(event);
-
 }
 
 fullmap.on('click', onMapClick);
