@@ -256,14 +256,14 @@ class PurchaserRegistrationForm extends React.Component {
 
         if (form_valid) {
             console.log(JSON.stringify(purchaserForm));
-
-            fetch('https://us-central1-harvestor-f8623.cloudfunctions.net/insertIntoDB/poptavka', {
+            fetch('https://us-central1-harvestor-f8623.cloudfunctions.net/salesmanRegistration', {
                 method: 'POST',
-                body: JSON.stringify(purchaserForm),
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
-                }
+                },
+                mode: "cors",
+                body: JSON.stringify(purchaserForm)
             }).then(response => {
                 console.log(response.status);
                 if (response.status === 200) {

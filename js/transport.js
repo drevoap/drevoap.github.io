@@ -332,13 +332,14 @@ class TransportRegistrationForm extends React.Component {
         if (form_valid) {
             console.log(JSON.stringify(transportForm));
 
-            fetch('https://us-central1-harvestor-f8623.cloudfunctions.net/insertIntoDB/poptavka', {
+            fetch('https://us-central1-harvestor-f8623.cloudfunctions.net/transportRegistration', {
                 method: 'POST',
-                body: JSON.stringify(transportForm),
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
-                }
+                },
+                mode: "cors",
+                body: JSON.stringify(transportForm)
             }).then(response => {
                 console.log(response.status);
                 if (response.status === 200) {

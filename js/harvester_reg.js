@@ -370,13 +370,14 @@ class HarvesterRegistrationForm extends React.Component {
         if (form_valid) {
             console.log(JSON.stringify(harvesterForm));
 
-            fetch('https://us-central1-harvestor-f8623.cloudfunctions.net/insertIntoDB/poptavka', {
+            fetch('https://us-central1-harvestor-f8623.cloudfunctions.net/harvesterRegistration', {
                 method: 'POST',
-                body: JSON.stringify(harvesterForm),
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
-                }
+                },
+                mode: "cors",
+                body: JSON.stringify(harvesterForm)
             }).then(response => {
                 console.log(response.status);
                 if (response.status === 200) {
