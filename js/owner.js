@@ -427,13 +427,14 @@ class DemandRegistrationForm extends React.Component {
         if (form_valid) {
             console.log(JSON.stringify(demandForm));
 
-            fetch('https://us-central1-harvestor-f8623.cloudfunctions.net/insertIntoDB/poptavka', {
+            fetch('https://us-central1-harvestor-f8623.cloudfunctions.net/demandRegistration', {
                 method: 'POST',
-                body: JSON.stringify(demandForm),
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
-                }
+                },
+                mode: "cors",
+                body: JSON.stringify(demandForm)
             }).then(response => {
                 console.log(response.status);
                 if (response.status === 200) {
