@@ -84,8 +84,6 @@ class DemandRegistrationForm extends React.Component {
                 unit: '',
                 priceharvest: '',
                 pricesale: '',
-                transport: '',
-                pricetransport: '',
                 location: ''
             },
 
@@ -103,6 +101,7 @@ class DemandRegistrationForm extends React.Component {
                 { label: "DG", value: 'DG' }
             ],
             saletypes : [
+                { label: "Nepoptávám prodej", value: ''},
                 { label: "Prodej nastojato", value: 'STOJ' },
                 { label: "Prodej na odvozním místě", value: 'OM' },
             ],
@@ -132,8 +131,6 @@ class DemandRegistrationForm extends React.Component {
                 unit: '',
                 priceharvest: '',
                 pricesale: '',
-                transport: '',
-                pricetransport: '',
                 location: ''
             },
             // slouzi i identifikaci zda byl jiz field validovan (rozlisit smazany a nezadany vstup)
@@ -157,8 +154,6 @@ class DemandRegistrationForm extends React.Component {
                 unit: false,
                 priceharvest: false,
                 pricesale: false,
-                transport: false,
-                pricetransport: false,
                 location: false
             }
         };
@@ -341,21 +336,21 @@ class DemandRegistrationForm extends React.Component {
                     console.log('Typ porostu prazdny');
                     return false;
                 }
-            case 'saletype':
-                this.state.validated.saletype = true;
-                if (value) {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: null}
-                    }));
-                    console.log('Typ prodeje vyplnen');
-                    return true;
-                } else {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: 'Způsob prodeje musí být vyplněn.'}
-                    }));
-                    console.log('Typ prodeje prazdny');
-                    return false;
-                }
+            // case 'saletype':
+            //     this.state.validated.saletype = true;
+            //     if (value) {
+            //         this.setState(prevState => ({ errors :
+            //                 {...prevState.errors, [fieldName]: null}
+            //         }));
+            //         console.log('Typ prodeje vyplnen');
+            //         return true;
+            //     } else {
+            //         this.setState(prevState => ({ errors :
+            //                 {...prevState.errors, [fieldName]: 'Způsob prodeje musí být vyplněn.'}
+            //         }));
+            //         console.log('Typ prodeje prazdny');
+            //         return false;
+            //     }
             case 'quantity':
                 this.state.validated.quantity = true;
                 if (value) {
@@ -529,7 +524,7 @@ class DemandRegistrationForm extends React.Component {
 
                 <h3>Údaje o lese</h3>
                 <div className="row form-group">
-                    <div className="col-md-4 mb-3 mb-md-0">
+                    <div className="col-md-6 mb-3 mb-md-0">
                         <label className="font-weight-bold" htmlFor="age">Věk porostu *</label>
                         <input type="text" id="age" name="age" className={this.getClassname('age')}
                                placeholder="Věk porostu" onChange={(event) => this.handleUserInput(event)}/>
@@ -540,7 +535,7 @@ class DemandRegistrationForm extends React.Component {
                             {this.state.errors.age}
                         </div>
                     </div>
-                    <div className="col-md-4 mb-3 mb-md-0">
+                    <div className="col-md-6 mb-3 mb-md-0">
                         <label className="font-weight-bold" htmlFor="type">Typ porostu *</label>
                         <select id="type" name="type"
                                 className={this.getClassname('type')}
@@ -561,29 +556,6 @@ class DemandRegistrationForm extends React.Component {
                         </div>
                         <div className="invalid-feedback">
                             {this.state.errors.type}
-                        </div>
-                    </div>
-                    <div className="col-md-4 mb-3 mb-md-0">
-                        <label className="font-weight-bold" htmlFor="saletype">Způsob prodeje *</label>
-                        <select id="saletype" name="saletype"
-                                className={this.getClassname('saletype')}
-                                onChange={(event) => this.handleUserInput(event)}>
-                            <option value="" disabled selected>Zvolte způsob prodeje</option>
-                            {this.state.saletypes.map(option => {
-                                return (
-                                    <option
-                                        key={option.value}
-                                        value={option.value}
-                                        label={option.label}>{option.label}
-                                    </option>
-                                );
-                            })}
-                        </select>
-                        <div className="valid-feedback">
-                            Děkujeme za vyplnění
-                        </div>
-                        <div className="invalid-feedback">
-                            {this.state.errors.saletype}
                         </div>
                     </div>
                 </div>
@@ -627,10 +599,37 @@ class DemandRegistrationForm extends React.Component {
 
 
                 <div className="row form-group">
+                    <div className="col-md-12 mb-3 mb-md-0">
+                        <label className="font-weight-bold" htmlFor="saletype">Chcete pomoci s prodejem?</label>
+                        <select id="saletype" name="saletype"
+                                className={this.getClassname('saletype')}
+                                onChange={(event) => this.handleUserInput(event)}>
+                            <option value="" disabled selected>Zvolte způsob prodeje</option>
+                            {this.state.saletypes.map(option => {
+                                return (
+                                    <option
+                                        key={option.value}
+                                        value={option.value}
+                                        label={option.label}>{option.label}
+                                    </option>
+                                );
+                            })}
+                        </select>
+                        <div className="valid-feedback">
+                            Děkujeme za vyplnění
+                        </div>
+                        <div className="invalid-feedback">
+                            {this.state.errors.saletype}
+                        </div>
+                    </div>
+                </div>
+
+                <div className="row form-group">
                     <div className="col-md-6 mb-3 mb-md-0">
                         <label className="font-weight-bold" htmlFor="priceharvest">Cena za těžbu</label>
                         <input type="text" id="priceharvest" name="priceharvest" className={this.getClassname('priceharvest')}
-                               placeholder="Cena těžby (za m3)" onChange={(event) => this.handleUserInput(event)}/>
+                               placeholder="Cena těžby (za m3)" onChange={(event) => this.handleUserInput(event)}
+                               disabled={this.state.demand.saletype === 'STOJ' || this.state.demand.saletype === ''}/>
                         <div className="valid-feedback">
                             Děkujeme za vyplnění
                         </div>
@@ -641,7 +640,8 @@ class DemandRegistrationForm extends React.Component {
                     <div className="col-md-6 mb-3 mb-md-0">
                         <label className="font-weight-bold" htmlFor="pricesale">Cena za prodej</label>
                         <input type="text" id="pricesale" name="pricesale" className={this.getClassname('pricesale')}
-                               placeholder="Cena za prodej (m3)" onChange={(event) => this.handleUserInput(event)}/>
+                               placeholder="Cena za prodej (m3)" onChange={(event) => this.handleUserInput(event)}
+                               disabled={this.state.demand.saletype === ''}/>
                         <div className="valid-feedback">
                             Děkujeme za vyplnění
                         </div>
@@ -651,30 +651,6 @@ class DemandRegistrationForm extends React.Component {
                     </div>
                 </div>
 
-                <div className="row form-group">
-                    <div className="col-md-6 mb-3 mb-md-0">
-                        <label className="font-weight-bold" htmlFor="transport">Místo kam bude dřevo odvezeno</label>
-                        <input type="text" id="transport" name="transport" className={this.getClassname('transport')}
-                               placeholder="Místo kam bude dřevo odvezeno" onChange={(event) => this.handleUserInput(event)}/>
-                        <div className="valid-feedback">
-                            Děkujeme za vyplnění
-                        </div>
-                        <div className="invalid-feedback">
-                            {this.state.errors.transport}
-                        </div>
-                    </div>
-                    <div className="col-md-6 mb-3 mb-md-0">
-                        <label className="font-weight-bold" htmlFor="pricetransport">Cena za transport</label>
-                        <input type="text" id="pricetransport" name="pricetransport" className={this.getClassname('pricetransport')}
-                               placeholder="Cena za transport celkem" onChange={(event) => this.handleUserInput(event)}/>
-                        <div className="valid-feedback">
-                            Děkujeme za vyplnění
-                        </div>
-                        <div className="invalid-feedback">
-                            {this.state.errors.pricetransport}
-                        </div>
-                    </div>
-                </div>
 
                 <div className="row form-group">
                     <div className="col-md-12 mb-3 mb-md-0">
