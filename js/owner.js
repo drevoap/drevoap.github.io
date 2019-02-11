@@ -626,10 +626,10 @@ class DemandRegistrationForm extends React.Component {
 
                 <div className="row form-group">
                     <div className="col-md-6 mb-3 mb-md-0">
-                        <label className="font-weight-bold" htmlFor="priceharvest">Cena za těžbu</label>
+                        <label className="font-weight-bold" htmlFor="priceharvest">Kolik nabízím za těžbu (maximálně)</label>
                         <input type="text" id="priceharvest" name="priceharvest" className={this.getClassname('priceharvest')}
                                placeholder="Cena těžby (za m3)" onChange={(event) => this.handleUserInput(event)}
-                               disabled={this.state.demand.saletype === 'STOJ' || this.state.demand.saletype === ''}/>
+                               disabled={this.state.demand.saletype === 'STOJ'}/>
                         <div className="valid-feedback">
                             Děkujeme za vyplnění
                         </div>
@@ -638,7 +638,7 @@ class DemandRegistrationForm extends React.Component {
                         </div>
                     </div>
                     <div className="col-md-6 mb-3 mb-md-0">
-                        <label className="font-weight-bold" htmlFor="pricesale">Cena za prodej</label>
+                        <label className="font-weight-bold" htmlFor="pricesale">Kolik požaduji při prodeji</label>
                         <input type="text" id="pricesale" name="pricesale" className={this.getClassname('pricesale')}
                                placeholder="Cena za prodej (m3)" onChange={(event) => this.handleUserInput(event)}
                                disabled={this.state.demand.saletype === ''}/>
