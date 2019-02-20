@@ -1,6 +1,6 @@
 
 const mapstyle = {
-    width: '600px',
+    width: '635px',
     height: '400px'
 };
 
@@ -73,7 +73,8 @@ class DemandRegistrationForm extends React.Component {
                 ico: '',
                 vat: '',
 
-                contact: '',
+                contactfirst: '',
+                contactlast: '',
                 phone: '',
                 email: '',
 
@@ -84,7 +85,9 @@ class DemandRegistrationForm extends React.Component {
                 unit: '',
                 priceharvest: '',
                 pricesale: '',
-                location: ''
+                location: '',
+
+                contract: ''
             },
 
             countries : [
@@ -120,7 +123,8 @@ class DemandRegistrationForm extends React.Component {
                 ico: '',
                 vat: '',
 
-                contact: '',
+                contactfirst: '',
+                constatlast: '',
                 phone: '',
                 email: '',
 
@@ -131,7 +135,9 @@ class DemandRegistrationForm extends React.Component {
                 unit: '',
                 priceharvest: '',
                 pricesale: '',
-                location: ''
+                location: '',
+
+                contract: ''
             },
             // slouzi i identifikaci zda byl jiz field validovan (rozlisit smazany a nezadany vstup)
             validated: {
@@ -143,7 +149,8 @@ class DemandRegistrationForm extends React.Component {
                 ico: false,
                 vat: false,
 
-                contact: false,
+                contactfirst: false,
+                contactlast: false,
                 phone: false,
                 email: false,
 
@@ -154,7 +161,9 @@ class DemandRegistrationForm extends React.Component {
                 unit: false,
                 priceharvest: false,
                 pricesale: false,
-                location: false
+                location: false,
+
+                contract: false
             }
         };
 
@@ -259,8 +268,8 @@ class DemandRegistrationForm extends React.Component {
                     console.log('Zip prazdny');
                     return false;
                 }
-            case 'contact':
-                this.state.validated.contact = true;
+            case 'contactfirst':
+                this.state.validated.contactfirst = true;
                 if (value) {
                     this.setState(prevState => ({ errors :
                             {...prevState.errors, [fieldName]: null}
@@ -270,6 +279,21 @@ class DemandRegistrationForm extends React.Component {
                 } else {
                     this.setState(prevState => ({ errors :
                             {...prevState.errors, [fieldName]: 'Jméno kontaktní osoby musí být vyplněno.'}
+                    }));
+                    console.log('Contact prazdny');
+                    return false;
+                }
+            case 'contactlast':
+                this.state.validated.contactlast = true;
+                if (value) {
+                    this.setState(prevState => ({ errors :
+                            {...prevState.errors, [fieldName]: null}
+                    }));
+                    console.log('Contact vyplnen');
+                    return true;
+                } else {
+                    this.setState(prevState => ({ errors :
+                            {...prevState.errors, [fieldName]: 'Příjmení kontaktní osoby musí být vyplněno.'}
                     }));
                     console.log('Contact prazdny');
                     return false;
@@ -381,6 +405,21 @@ class DemandRegistrationForm extends React.Component {
                     console.log('unit prazdny');
                     return false;
                 }
+            case 'contract':
+                this.state.validated.contract = true;
+                if (value) {
+                    this.setState(prevState => ({ errors :
+                            {...prevState.errors, [fieldName]: null}
+                    }));
+                    console.log('contract vyplnen');
+                    return true;
+                } else {
+                    this.setState(prevState => ({ errors :
+                            {...prevState.errors, [fieldName]: 'Pro zadání poptávky je potřeba souhlasit se smluvníma podmínkama.'}
+                    }));
+                    console.log('contract prazdny');
+                    return false;
+                }
             default:
                 return true;
         }
@@ -447,6 +486,18 @@ class DemandRegistrationForm extends React.Component {
 
     }
 
+    getClassnameCheckbox(fieldname) {
+        if (this.state.validated[fieldname]) {
+            if (this.state.errors[fieldname]) {
+                return 'form-check-input is-invalid';
+            } else {
+                return 'form-check-input is-valid';
+            }
+        } else {
+            return 'form-check-input';
+        }
+    }
+
     getClassname(fieldname) {
         if (this.state.validated[fieldname]) {
             if (this.state.errors[fieldname]) {
@@ -503,11 +554,31 @@ class DemandRegistrationForm extends React.Component {
                                              classname={this.getClassname('vat')}/>
 
                 <h3>Kontaktní osoba</h3>
-                <DemandRegistrationTextInput id={'contact'} text={'Jméno osoby'} mandatory={true}
-                                             onchange={(event) => this.handleUserInput(event)}
-                                             valid={'Děkujeme za vyplnění'}
-                                             invalid={this.state.errors.contact}
-                                             classname={this.getClassname('contact')}/>
+                <div className="row form-group">
+                    <div className="col-md-6 mb-3 mb-md-0">
+                        <label className="font-weight-bold" htmlFor="contactfirst">Jméno osoby *</label>
+                        <input type="text" id="contactfirst" name="contactfirst" className={this.getClassname('contactfirst')}
+                               placeholder="Jméno osoby" onChange={(event) => this.handleUserInput(event)}/>
+                        <div className="valid-feedback">
+                            Děkujeme za vyplnění
+                        </div>
+                        <div className="invalid-feedback">
+                            {this.state.errors.contactfirst}
+                        </div>
+                    </div>
+
+                    <div className="col-md-6 mb-3 mb-md-0">
+                        <label className="font-weight-bold" htmlFor="contactlast">Příjmení osoby *</label>
+                        <input type="text" id="contactlast" name="contactlast" className={this.getClassname('contactlast')}
+                               placeholder="Příjmení osoby" onChange={(event) => this.handleUserInput(event)}/>
+                        <div className="valid-feedback">
+                            Děkujeme za vyplnění
+                        </div>
+                        <div className="invalid-feedback">
+                            {this.state.errors.contactlast}
+                        </div>
+                    </div>
+                </div>
 
                 <DemandRegistrationTextInput id={'phone'} text={'Telefon'} mandatory={true}
                                              onchange={(event) => this.handleUserInput(event)}
@@ -668,6 +739,19 @@ class DemandRegistrationForm extends React.Component {
                     </div>
                 </div>
 
+                <div className="row form-group">
+                    <div className="col-md-12 mb-3 mb-md-0">
+                        <input type="checkbox" id="contract" name="contract" className={this.getClassnameCheckbox('contract')}
+                               onChange={(event) => this.handleUserInput(event)}/>
+                        <label className="font-weight-bold form-check-label" htmlFor="contract">Souhlasím se smluvníma podmínkama serveru Můj les</label>
+                        <div className="valid-feedback">
+                            Děkujeme za souhlas
+                        </div>
+                        <div className="invalid-feedback">
+                            {this.state.errors.contract}
+                        </div>
+                    </div>
+                </div>
 
 
                 <div className="row form-group">
