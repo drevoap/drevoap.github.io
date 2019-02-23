@@ -81,8 +81,9 @@ class DemandRegistrationForm extends React.Component {
                 age: '',
                 type: '',
                 saletype: '',
-                quantity: '',
-                unit: '',
+                quantity_m3: '',
+                quantity_ha: '',
+                // unit: '',
                 priceharvest: '',
                 pricesale: '',
                 location: '',
@@ -132,8 +133,9 @@ class DemandRegistrationForm extends React.Component {
                 age: '',
                 type: '',
                 saletype: '',
-                quantity: '',
-                unit: '',
+                quantity_m3: '',
+                quantity_ha: '',
+                // unit: '',
                 priceharvest: '',
                 pricesale: '',
                 location: '',
@@ -159,8 +161,9 @@ class DemandRegistrationForm extends React.Component {
                 age: false,
                 type: false,
                 saletype: false,
-                quantity: false,
-                unit: false,
+                quantity_m3: false,
+                quantity_ha: false,
+                // unit: false,
                 priceharvest: false,
                 pricesale: false,
                 location: false,
@@ -401,21 +404,21 @@ class DemandRegistrationForm extends React.Component {
             //         console.log('quantity prazdny');
             //         return false;
             //     }
-            case 'unit':
-                this.state.validated.unit = true;
-                if (value) {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: null}
-                    }));
-                    console.log('unit vyplnen');
-                    return true;
-                } else {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: 'Jednotky objemu těžby musí být vyplněny.'}
-                    }));
-                    console.log('unit prazdny');
-                    return false;
-                }
+            // case 'unit':
+            //     this.state.validated.unit = true;
+            //     if (value) {
+            //         this.setState(prevState => ({ errors :
+            //                 {...prevState.errors, [fieldName]: null}
+            //         }));
+            //         console.log('unit vyplnen');
+            //         return true;
+            //     } else {
+            //         this.setState(prevState => ({ errors :
+            //                 {...prevState.errors, [fieldName]: 'Jednotky objemu těžby musí být vyplněny.'}
+            //         }));
+            //         console.log('unit prazdny');
+            //         return false;
+            //     }
             case 'contract':
                 this.state.validated.contract = true;
                 if (value) {
@@ -676,38 +679,50 @@ class DemandRegistrationForm extends React.Component {
 
                     <div className="col-md-6 mb-3 mb-md-0">
                         <label className="font-weight-bold" htmlFor="quantity">Odhadovaný objem těžby</label>
-                        <input type="text" id="quantity" name="quantity" className={this.getClassname('quantity')}
-                               placeholder="Odhadovaný objem těžby" onChange={(event) => this.handleUserInput(event)}/>
+                        <div className="input-group">
+                            <div className="input-group-prepend">
+                                <div className="input-group-text">m3</div>
+                            </div>
+                            <input type="text" id="quantity_m3" name="quantity_m3" className={this.getClassname('quantity_m3')}
+                                   placeholder="Odhadovaný objem těžby v m3" onChange={(event) => this.handleUserInput(event)}/>
+                        </div>
+                        <div className="input-group">
+                            <div className="input-group-prepend">
+                                <div className="input-group-text">ha</div>
+                            </div>
+                            <input type="text" id="quantity_ha" name="quantity_ha" className={this.getClassname('quantity_ha')}
+                                   placeholder="Odhadovaný objem těžby v ha" onChange={(event) => this.handleUserInput(event)}/>
+                        </div>
                         <div className="valid-feedback">
                             Děkujeme za vyplnění
                         </div>
                         <div className="invalid-feedback">
-                            {this.state.errors.quantity}
+                            {this.state.errors.quantity_m3}
                         </div>
                     </div>
-                    <div className="col-md-6 mb-3 mb-md-0">
-                        <label className="font-weight-bold" htmlFor="unit">Jednotky *</label>
-                        <select id="unit" name="unit"
-                                className={this.getClassname('unit')}
-                                onChange={(event) => this.handleUserInput(event)}>
-                            <option value="" disabled selected>Zvolte jednotku množství</option>
-                            {this.state.units.map(option => {
-                                return (
-                                    <option
-                                        key={option.value}
-                                        value={option.value}
-                                        label={option.label}>{option.label}
-                                    </option>
-                                );
-                            })}
-                        </select>
-                        <div className="valid-feedback">
-                            Děkujeme za vyplnění
-                        </div>
-                        <div className="invalid-feedback">
-                            {this.state.errors.unit}
-                        </div>
-                    </div>
+                    {/*<div className="col-md-6 mb-3 mb-md-0">*/}
+                        {/*<label className="font-weight-bold" htmlFor="unit">Jednotky *</label>*/}
+                        {/*<select id="unit" name="unit"*/}
+                                {/*className={this.getClassname('unit')}*/}
+                                {/*onChange={(event) => this.handleUserInput(event)}>*/}
+                            {/*<option value="" disabled selected>Zvolte jednotku množství</option>*/}
+                            {/*{this.state.units.map(option => {*/}
+                                {/*return (*/}
+                                    {/*<option*/}
+                                        {/*key={option.value}*/}
+                                        {/*value={option.value}*/}
+                                        {/*label={option.label}>{option.label}*/}
+                                    {/*</option>*/}
+                                {/*);*/}
+                            {/*})}*/}
+                        {/*</select>*/}
+                        {/*<div className="valid-feedback">*/}
+                            {/*Děkujeme za vyplnění*/}
+                        {/*</div>*/}
+                        {/*<div className="invalid-feedback">*/}
+                            {/*{this.state.errors.unit}*/}
+                        {/*</div>*/}
+                    {/*</div>*/}
                 </div>
 
                 <div className="row form-group">
