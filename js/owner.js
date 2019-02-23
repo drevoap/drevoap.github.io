@@ -111,7 +111,7 @@ class DemandRegistrationForm extends React.Component {
             ],
             units : [
                 { label: "m3 - objem dřeva", value: 'M3' },
-                { label: "m2 - plocha pozemku", value: 'M2' },
+                { label: "ha - plocha pozemku", value: 'HA' },
             ],
 
             // slouzi k ulozeni chybove hlasky pro stranku
@@ -675,9 +675,9 @@ class DemandRegistrationForm extends React.Component {
                     </div>
 
                     <div className="col-md-6 mb-3 mb-md-0">
-                        <label className="font-weight-bold" htmlFor="quantity">Objem těžby</label>
+                        <label className="font-weight-bold" htmlFor="quantity">Odhadovaný objem těžby</label>
                         <input type="text" id="quantity" name="quantity" className={this.getClassname('quantity')}
-                               placeholder="Objem těžby" onChange={(event) => this.handleUserInput(event)}/>
+                               placeholder="Odhadovaný objem těžby" onChange={(event) => this.handleUserInput(event)}/>
                         <div className="valid-feedback">
                             Děkujeme za vyplnění
                         </div>
