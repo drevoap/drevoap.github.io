@@ -68,9 +68,7 @@ class TransportRegistrationForm extends React.Component {
                 email: '',
 
                 trucktype: '',
-                truckcapacity: '',
-                pricekm: '',
-                priceloading: ''
+                truckcapacity: ''
             },
 
             countries : [
@@ -94,9 +92,7 @@ class TransportRegistrationForm extends React.Component {
                 email: '',
 
                 trucktype: '',
-                truckcapacity: '',
-                pricekm: '',
-                priceloading: ''
+                truckcapacity: ''
             },
             // slouzi i identifikaci zda byl jiz field validovan (rozlisit smazany a nezadany vstup)
             validated: {
@@ -113,9 +109,7 @@ class TransportRegistrationForm extends React.Component {
                 email: false,
 
                 trucktype: false,
-                truckcapacity: false,
-                pricekm: false,
-                priceloading: false
+                truckcapacity: false
             }
         };
 
@@ -280,36 +274,6 @@ class TransportRegistrationForm extends React.Component {
                     console.log('Truck capacity prazdny');
                     return false;
                 }
-            case 'pricekm':
-                this.state.validated.pricekm = true;
-                if (value) {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: null}
-                    }));
-                    console.log('Price KM capacity vyplnen');
-                    return true;
-                } else {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: 'Cena za KM musí být vyplněna. Uveďte alespoň orientační cenu za KM.'}
-                    }));
-                    console.log('Price KM capacity prazdny');
-                    return false;
-                }
-            case 'priceloading':
-                this.state.validated.priceloading = true;
-                if (value) {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: null}
-                    }));
-                    console.log('Price loading capacity vyplnen');
-                    return true;
-                } else {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: 'Cena za nakládku musí být vyplněna. Uveďte alespoň orientační cenu za nakládku plného vozu.'}
-                    }));
-                    console.log('Price loading capacity prazdny');
-                    return false;
-                }
             default:
                 return true;
         }
@@ -443,18 +407,6 @@ class TransportRegistrationForm extends React.Component {
                                                 valid={'Děkujeme za vyplnění'}
                                                 invalid={this.state.errors.truckcapacity}
                                                 classname={this.getClassname('truckcapacity')}/>
-
-                <TransportRegistrationTextInput id={'pricekm'} text={'Cena za KM'} mandatory={true}
-                                                onchange={(event) => this.handleUserInput(event)}
-                                                valid={'Děkujeme za vyplnění'}
-                                                invalid={this.state.errors.pricekm}
-                                                classname={this.getClassname('pricekm')}/>
-
-                <TransportRegistrationTextInput id={'priceloading'} text={'Cena za nakládku'} mandatory={true}
-                                                onchange={(event) => this.handleUserInput(event)}
-                                                valid={'Děkujeme za vyplnění'}
-                                                invalid={this.state.errors.priceloading}
-                                                classname={this.getClassname('priceloading')}/>
 
 
                 <div className="row form-group">
