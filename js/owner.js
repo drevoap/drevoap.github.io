@@ -96,12 +96,12 @@ class DemandRegistrationForm extends React.Component {
                 { label: "Polsko", value: "PL"}
             ],
             types : [
-                { label: "SM", value: 'SM' },
-                { label: "BO", value: 'BO' },
-                { label: "MD", value: 'MD' },
-                { label: "BK", value: 'BK' },
-                { label: "DB", value: 'DB' },
-                { label: "DG", value: 'DG' }
+                { label: "SM - smrk", value: 'SM' },
+                { label: "BO - borovice", value: 'BO' },
+                { label: "MD - modřín", value: 'MD' },
+                { label: "BK - buk", value: 'BK' },
+                { label: "DB - dub", value: 'DB' },
+                { label: "DG - douglaska", value: 'DG' }
             ],
             saletypes : [
                 { label: "Nepoptávám prodej", value: ''},
