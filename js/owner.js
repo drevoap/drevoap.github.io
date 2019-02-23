@@ -87,6 +87,7 @@ class DemandRegistrationForm extends React.Component {
                 pricesale: '',
                 location: '',
 
+                helpsale: '',
                 contract: ''
             },
 
@@ -104,8 +105,8 @@ class DemandRegistrationForm extends React.Component {
                 { label: "DG - douglaska", value: 'DG' }
             ],
             saletypes : [
-                { label: "Jen provést těžbu", value: ''},
-                { label: "Prodej nastojato", value: 'STOJ' },
+                // { label: "Jen provést těžbu", value: ''},
+                { label: "Prodej nevytěžených stromů", value: 'STOJ' },
                 { label: "Mám již vytěženo a chci prodat", value: 'OM' },
             ],
             units : [
@@ -137,6 +138,7 @@ class DemandRegistrationForm extends React.Component {
                 pricesale: '',
                 location: '',
 
+                helpsale: '',
                 contract: ''
             },
             // slouzi i identifikaci zda byl jiz field validovan (rozlisit smazany a nezadany vstup)
@@ -163,6 +165,7 @@ class DemandRegistrationForm extends React.Component {
                 pricesale: false,
                 location: false,
 
+                helpsale: false,
                 contract: false
             }
         };
@@ -170,6 +173,14 @@ class DemandRegistrationForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    handleUserCheckbox (event) {
+        const name = event.target.name;
+        const value = event.target.checked;
+
+        this.setState(prevState => ({ demand :
+                {...prevState.demand, [name]: value}
+        }), () => { this.validateField(name, value) });
+    }
 
     handleUserInput (event) {
         const name = event.target.name;
@@ -420,6 +431,25 @@ class DemandRegistrationForm extends React.Component {
                     console.log('contract prazdny');
                     return false;
                 }
+            case 'helpsale':
+                this.state.validated.helpsale = true;
+                if (value) {
+                    this.setState(prevState => ({ errors :
+                            {...prevState.errors, [fieldName]: null}
+                    }));
+                    console.log('helpsale vyplnen');
+                    return true;
+                } else {
+                    this.setState(prevState => ({ validated :
+                            {...prevState.validated, [fieldName]: false}
+                    }));
+                    this.setState(prevState => ({ errors :
+                            {...prevState.errors, [fieldName]: null}
+                    }));
+                    console.log('helpsale prazdny');
+                    return false;
+                }
+
             default:
                 return true;
         }
@@ -633,6 +663,18 @@ class DemandRegistrationForm extends React.Component {
 
                 <div className="row form-group">
                     <div className="col-md-6 mb-3 mb-md-0">
+                        <label className="font-weight-bold" htmlFor="priceharvest">Kolik nabízím za těžbu (maximálně)</label>
+                        <input type="text" id="priceharvest" name="priceharvest" className={this.getClassname('priceharvest')}
+                               placeholder="Cena těžby (za m3)" onChange={(event) => this.handleUserInput(event)}/>
+                        <div className="valid-feedback">
+                            Děkujeme za vyplnění
+                        </div>
+                        <div className="invalid-feedback">
+                            {this.state.errors.priceharvest}
+                        </div>
+                    </div>
+
+                    <div className="col-md-6 mb-3 mb-md-0">
                         <label className="font-weight-bold" htmlFor="quantity">Objem těžby</label>
                         <input type="text" id="quantity" name="quantity" className={this.getClassname('quantity')}
                                placeholder="Objem těžby" onChange={(event) => this.handleUserInput(event)}/>
@@ -668,9 +710,22 @@ class DemandRegistrationForm extends React.Component {
                     </div>
                 </div>
 
-
                 <div className="row form-group">
                     <div className="col-md-12 mb-3 mb-md-0">
+                        <input type="checkbox" id="helpsale" name="helpsale" className={this.getClassnameCheckbox('helpsale')}
+                               onChange={(event) => this.handleUserCheckbox(event)}/>
+                        <label className="font-weight-bold form-check-label" htmlFor="helpsale">Chci pomoci s prodejem vytěženého dřeva</label>
+                        <div className="valid-feedback">
+                            Děkujeme, rádi Vám pomůžeme
+                        </div>
+                        <div className="invalid-feedback">
+                            {this.state.errors.helpsale}
+                        </div>
+                    </div>
+                </div>
+
+                <div className="row form-group" hidden={!this.state.demand.helpsale}>
+                    <div className="col-md-6 mb-3 mb-md-0">
                         <label className="font-weight-bold" htmlFor="saletype">Chcete pomoci s prodejem?</label>
                         <select id="saletype" name="saletype"
                                 className={this.getClassname('saletype')}
@@ -693,26 +748,11 @@ class DemandRegistrationForm extends React.Component {
                             {this.state.errors.saletype}
                         </div>
                     </div>
-                </div>
 
-                <div className="row form-group">
-                    <div className="col-md-6 mb-3 mb-md-0">
-                        <label className="font-weight-bold" htmlFor="priceharvest">Kolik nabízím za těžbu (maximálně)</label>
-                        <input type="text" id="priceharvest" name="priceharvest" className={this.getClassname('priceharvest')}
-                               placeholder="Cena těžby (za m3)" onChange={(event) => this.handleUserInput(event)}
-                               disabled={this.state.demand.saletype === 'STOJ'}/>
-                        <div className="valid-feedback">
-                            Děkujeme za vyplnění
-                        </div>
-                        <div className="invalid-feedback">
-                            {this.state.errors.priceharvest}
-                        </div>
-                    </div>
                     <div className="col-md-6 mb-3 mb-md-0">
                         <label className="font-weight-bold" htmlFor="pricesale">Kolik požaduji při prodeji za m3</label>
                         <input type="text" id="pricesale" name="pricesale" className={this.getClassname('pricesale')}
-                               placeholder="Cena za prodej (m3)" onChange={(event) => this.handleUserInput(event)}
-                               disabled={this.state.demand.saletype === ''}/>
+                               placeholder="Cena za prodej (m3)" onChange={(event) => this.handleUserInput(event)}/>
                         <div className="valid-feedback">
                             Děkujeme za vyplnění
                         </div>
@@ -742,7 +782,7 @@ class DemandRegistrationForm extends React.Component {
                 <div className="row form-group">
                     <div className="col-md-12 mb-3 mb-md-0">
                         <input type="checkbox" id="contract" name="contract" className={this.getClassnameCheckbox('contract')}
-                               onChange={(event) => this.handleUserInput(event)}/>
+                               onChange={(event) => this.handleUserCheckbox(event)}/>
                         <label className="font-weight-bold form-check-label" htmlFor="contract">Souhlasím se smluvníma podmínkama serveru Můj les</label>
                         <div className="valid-feedback">
                             Děkujeme za souhlas
