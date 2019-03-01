@@ -86,7 +86,8 @@ class DemandRegistrationForm extends React.Component {
                 // unit: '',
                 priceharvest: '',
                 pricesale: '',
-                location: '',
+                location_lat: '',
+                location_lng: '',
 
                 helpsale: '',
                 contract: ''
@@ -138,7 +139,8 @@ class DemandRegistrationForm extends React.Component {
                 // unit: '',
                 priceharvest: '',
                 pricesale: '',
-                location: '',
+                location_lat: '',
+                location_lng: '',
 
                 helpsale: '',
                 contract: ''
@@ -166,7 +168,8 @@ class DemandRegistrationForm extends React.Component {
                 // unit: false,
                 priceharvest: false,
                 pricesale: false,
-                location: false,
+                location_lat: false,
+                location_lng: false,
 
                 helpsale: false,
                 contract: false
@@ -327,8 +330,25 @@ class DemandRegistrationForm extends React.Component {
                     console.log('Phone prazdny');
                     return false;
                 }
-            case 'location':
-                this.state.validated.location = true;
+            case 'location_lng':
+                this.state.validated.location_lng = true;
+                if (value) {
+                    this.setState(prevState => ({ errors :
+                            {...prevState.errors, [fieldName]: null}
+                    }));
+                    this.state.errors[fieldName] = null;
+                    console.log('Misto tezby vyplneno');
+                    return true;
+                } else {
+                    this.setState(prevState => ({ errors :
+                            {...prevState.errors, [fieldName]: 'Místo těžby musí být vyplněno.'}
+                    }));
+                    this.state.errors[fieldName] = 'Místo těžby musí být vyplněno.';
+                    console.log('Misto tezby prazdne');
+                    return false;
+                }
+            case 'location_lat':
+                this.state.validated.location_lat = true;
                 if (value) {
                     this.setState(prevState => ({ errors :
                             {...prevState.errors, [fieldName]: null}
@@ -479,7 +499,8 @@ class DemandRegistrationForm extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.state.demand.location = document.getElementById("location").value;
+        this.state.demand.location_lat = document.getElementById("location_lat").value;
+        this.state.demand.location_lng = document.getElementById("location_lng").value;
         let demandForm = this.state.demand;
         let form_valid = true;
 
@@ -780,14 +801,16 @@ class DemandRegistrationForm extends React.Component {
 
                 <div className="row form-group">
                     <div className="col-md-12 mb-3 mb-md-0">
-                        <label className="font-weight-bold" htmlFor="location">Místo těžby *</label>
-                        <input type="text" id="location" name="location" className={this.getClassname('location')}
+                        <label className="font-weight-bold" htmlFor="location_lng">Místo těžby *</label>
+                        <input type="text" id="location_lat" name="location_lat" className={this.getClassname('location_lat')}
+                               disabled={true} placeholder="Místo zvolíte kliknutím na mapu"/>
+                        <input type="text" id="location_lng" name="location_lng" className={this.getClassname('location_lng')}
                                disabled={true} placeholder="Místo zvolíte kliknutím na mapu"/>
                         <div className="valid-feedback">
                             Děkujeme za vyplnění
                         </div>
                         <div className="invalid-feedback">
-                            {this.state.errors.location}
+                            {this.state.errors.location_lng}
                         </div>
 
                         <div id="mapid" style={mapstyle}></div>
@@ -841,8 +864,10 @@ function onMapClick(e) {
 
     harvestmarker = L.marker(e.latlng).addTo(fullmap);
     harvestmarker.bindPopup("Místo k těžbě.").openPopup();
-    $('#location').val(e.latlng);
-    document.getElementById("location").className = "form-control is-valid";
+    $('#location_lat').val(e.latlng.lat);
+    $('#location_lng').val(e.latlng.lng);
+    document.getElementById("location_lat").className = "form-control is-valid";
+    document.getElementById("location_lng").className = "form-control is-valid";
 }
 
 fullmap.on('click', onMapClick);
