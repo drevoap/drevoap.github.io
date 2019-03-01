@@ -454,24 +454,24 @@ class DemandRegistrationForm extends React.Component {
                     console.log('contract prazdny');
                     return false;
                 }
-            case 'helpsale':
-                this.state.validated.helpsale = true;
-                if (value) {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: null}
-                    }));
-                    console.log('helpsale vyplnen');
-                    return true;
-                } else {
-                    this.setState(prevState => ({ validated :
-                            {...prevState.validated, [fieldName]: false}
-                    }));
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: null}
-                    }));
-                    console.log('helpsale prazdny');
-                    return false;
-                }
+            // case 'helpsale':
+            //     this.state.validated.helpsale = true;
+            //     if (value) {
+            //         this.setState(prevState => ({ errors :
+            //                 {...prevState.errors, [fieldName]: null}
+            //         }));
+            //         console.log('helpsale vyplnen');
+            //         return true;
+            //     } else {
+            //         this.setState(prevState => ({ validated :
+            //                 {...prevState.validated, [fieldName]: false}
+            //         }));
+            //         this.setState(prevState => ({ errors :
+            //                 {...prevState.errors, [fieldName]: null}
+            //         }));
+            //         console.log('helpsale prazdny');
+            //         return false;
+            //     }
 
             default:
                 return true;
