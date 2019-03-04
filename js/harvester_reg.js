@@ -87,7 +87,8 @@ class HarvesterRegistrationForm extends React.Component {
                 forwarder_odo: '',
 
                 range: '30',
-                location: ''
+                location_lat: '',
+                location_lng: ''
             },
 
             countries : [
@@ -160,7 +161,8 @@ class HarvesterRegistrationForm extends React.Component {
                 forwarder_odo: '',
 
                 range: '',
-                location: ''
+                location_lat: '',
+                location_lng: ''
             },
             // slouzi i identifikaci zda byl jiz field validovan (rozlisit smazany a nezadany vstup)
             validated: {
@@ -186,7 +188,8 @@ class HarvesterRegistrationForm extends React.Component {
                 forwarder_odo: false,
 
                 range: false,
-                location: false
+                location_lat: false,
+                location_lng: false
             }
         };
 
@@ -335,21 +338,38 @@ class HarvesterRegistrationForm extends React.Component {
                     console.log('Phone prazdny');
                     return false;
                 }
-            case 'location':
-                this.state.validated.location = true;
+            case 'location_lng':
+                this.state.validated.location_lng = true;
                 if (value) {
                     this.setState(prevState => ({ errors :
                             {...prevState.errors, [fieldName]: null}
                     }));
                     this.state.errors[fieldName] = null;
-                    console.log('Misto zajmu vyplneno');
+                    console.log('Oblast zájmu vyplneno');
                     return true;
                 } else {
                     this.setState(prevState => ({ errors :
                             {...prevState.errors, [fieldName]: 'Oblast zájmu musí být vyplněno.'}
                     }));
                     this.state.errors[fieldName] = 'Oblast zájmu musí být vyplněno.';
-                    console.log('Misto zajmu prazdne');
+                    console.log('Oblast zájmu prazdne');
+                    return false;
+                }
+            case 'location_lat':
+                this.state.validated.location_lat = true;
+                if (value) {
+                    this.setState(prevState => ({ errors :
+                            {...prevState.errors, [fieldName]: null}
+                    }));
+                    this.state.errors[fieldName] = null;
+                    console.log('Oblast zájmu vyplneno');
+                    return true;
+                } else {
+                    this.setState(prevState => ({ errors :
+                            {...prevState.errors, [fieldName]: 'Oblast zájmu musí být vyplněno.'}
+                    }));
+                    this.state.errors[fieldName] = 'Oblast zájmu musí být vyplněno.';
+                    console.log('Oblast zájmu prazdne');
                     return false;
                 }
             case 'harvester_type':
@@ -407,7 +427,8 @@ class HarvesterRegistrationForm extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.state.harvester.location = document.getElementById("location").value;
+        this.state.harvester.location_lat = document.getElementById("location_lat").value;
+        this.state.harvester.location_lng = document.getElementById("location_lng").value;
         let harvesterForm = this.state.harvester;
         let form_valid = true;
 
@@ -734,14 +755,16 @@ class HarvesterRegistrationForm extends React.Component {
                                                 options={this.state.ranges}/>
                 <div className="row form-group">
                     <div className="col-md-12 mb-3 mb-md-0">
-                        <label className="font-weight-bold" htmlFor="location">Střed oblasti zájmu *</label>
-                        <input type="text" id="location" name="location" className={this.getClassname('location')}
+                        <label className="font-weight-bold" htmlFor="location_lng">Střed oblasti zájmu *</label>
+                        <input type="text" id="location_lat" name="location_lat" className={this.getClassname('location_lat')}
+                               disabled={true} placeholder="Místo zvolíte kliknutím na mapu"/>
+                        <input type="text" id="location_lng" name="location_lng" className={this.getClassname('location_lng')}
                                disabled={true} placeholder="Místo zvolíte kliknutím na mapu"/>
                         <div className="valid-feedback">
                             Děkujeme za vyplnění
                         </div>
                         <div className="invalid-feedback">
-                            {this.state.errors.location}
+                            {this.state.errors.location_lng}
                         </div>
 
 
@@ -784,8 +807,10 @@ function onMapClick(e) {
 
     harvestmarker = L.marker(e.latlng).addTo(fullmap);
     harvestmarker.bindPopup("Oblast zájmu.").openPopup();
-    $('#location').val(e.latlng);
-    document.getElementById("location").className = "form-control is-valid";
+    $('#location_lat').val(e.latlng.lat);
+    $('#location_lng').val(e.latlng.lng);
+    document.getElementById("location_lat").className = "form-control is-valid";
+    document.getElementById("location_lng").className = "form-control is-valid";
 
     var km = $('#range').val() * 1000;
     harvestcircle = L.circle(e.latlng, {
