@@ -102,7 +102,7 @@ class HarvesterRegistrationForm extends React.Component {
                 { label: "100 km", value: "100"},
                 { label: "Neomezeno", value: "250"}
             ],
-            ages : [
+            years : [
                 { label: "2000 a starší", value: 'OLD' },
                 { label: "2001", value: '2001' },
                 { label: "2002", value: '2002' },
@@ -552,13 +552,13 @@ class HarvesterRegistrationForm extends React.Component {
 
                 <div className="row form-group">
                     <div className="col-md-4 mb-3 mb-md-0">
-                        <label className="font-weight-bold" htmlFor="harvester_age">Rok výroby</label>
-                        <select id="harvester_age" name="harvester_age"
-                                className={this.getClassname('harvester_age')}
+                        <label className="font-weight-bold" htmlFor="harvester_year">Rok výroby</label>
+                        <select id="harvester_year" name="harvester_year"
+                                className={this.getClassname('harvester_year')}
                                 onChange={(event) => this.handleUserInput(event)}
                                 defaultValue={''}>
                             <option value="" disabled>Zvolte rok výroby</option>
-                            {this.state.ages.map(option => {
+                            {this.state.years.map(option => {
                                 return (
                                     <option
                                         key={option.value}
@@ -572,7 +572,7 @@ class HarvesterRegistrationForm extends React.Component {
                             Děkujeme za vyplnění
                         </div>
                         <div className="invalid-feedback">
-                            {this.state.errors.harvester_age}
+                            {this.state.errors.harvester_year}
                         </div>
                     </div>
                     <div className="col-md-4 mb-3 mb-md-0">
@@ -687,13 +687,13 @@ class HarvesterRegistrationForm extends React.Component {
 
                 <div className="row form-group">
                     <div className="col-md-4 mb-3 mb-md-0">
-                        <label className="font-weight-bold" htmlFor="forwarder_age">Rok výroby</label>
-                        <select id="forwarder_age" name="forwarder_age"
-                                className={this.getClassname('forwarder_age')}
+                        <label className="font-weight-bold" htmlFor="forwarder_year">Rok výroby</label>
+                        <select id="forwarder_year" name="forwarder_year"
+                                className={this.getClassname('forwarder_year')}
                                 onChange={(event) => this.handleUserInput(event)}
                                 defaultValue={''}>
                             <option value="" disabled>Zvolte rok výroby</option>
-                            {this.state.ages.map(option => {
+                            {this.state.years.map(option => {
                                 return (
                                     <option
                                         key={option.value}
@@ -707,7 +707,7 @@ class HarvesterRegistrationForm extends React.Component {
                             Děkujeme za vyplnění
                         </div>
                         <div className="invalid-feedback">
-                            {this.state.errors.forwarder_age}
+                            {this.state.errors.forwarder_year}
                         </div>
                     </div>
                     <div className="col-md-4 mb-3 mb-md-0">
