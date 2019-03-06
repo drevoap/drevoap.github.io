@@ -81,12 +81,15 @@ class DemandRegistrationForm extends React.Component {
                 age: '',
                 type: '',
                 saletype: '',
-                quantity: '',
-                unit: '',
+                quantity_m3: '',
+                quantity_ha: '',
+                // unit: '',
                 priceharvest: '',
                 pricesale: '',
-                location: '',
+                location_lat: '',
+                location_lng: '',
 
+                helpsale: '',
                 contract: ''
             },
 
@@ -96,21 +99,21 @@ class DemandRegistrationForm extends React.Component {
                 { label: "Polsko", value: "PL"}
             ],
             types : [
-                { label: "SM", value: 'SM' },
-                { label: "BO", value: 'BO' },
-                { label: "MD", value: 'MD' },
-                { label: "BK", value: 'BK' },
-                { label: "DB", value: 'DB' },
-                { label: "DG", value: 'DG' }
+                { label: "SM - smrk", value: 'SM' },
+                { label: "BO - borovice", value: 'BO' },
+                { label: "MD - modřín", value: 'MD' },
+                { label: "BK - buk", value: 'BK' },
+                { label: "DB - dub", value: 'DB' },
+                { label: "DG - douglaska", value: 'DG' }
             ],
             saletypes : [
-                { label: "Nepoptávám prodej", value: ''},
-                { label: "Prodej nastojato", value: 'STOJ' },
-                { label: "Prodej na odvozním místě", value: 'OM' },
+                // { label: "Jen provést těžbu", value: ''},
+                { label: "Prodej nevytěžených stromů", value: 'STOJ' },
+                { label: "Mám již vytěženo a chci prodat", value: 'OM' },
             ],
             units : [
                 { label: "m3 - objem dřeva", value: 'M3' },
-                { label: "m2 - plocha pozemku", value: 'M2' },
+                { label: "ha - plocha pozemku", value: 'HA' },
             ],
 
             // slouzi k ulozeni chybove hlasky pro stranku
@@ -131,12 +134,15 @@ class DemandRegistrationForm extends React.Component {
                 age: '',
                 type: '',
                 saletype: '',
-                quantity: '',
-                unit: '',
+                quantity_m3: '',
+                quantity_ha: '',
+                // unit: '',
                 priceharvest: '',
                 pricesale: '',
-                location: '',
+                location_lat: '',
+                location_lng: '',
 
+                helpsale: '',
                 contract: ''
             },
             // slouzi i identifikaci zda byl jiz field validovan (rozlisit smazany a nezadany vstup)
@@ -157,12 +163,15 @@ class DemandRegistrationForm extends React.Component {
                 age: false,
                 type: false,
                 saletype: false,
-                quantity: false,
-                unit: false,
+                quantity_m3: false,
+                quantity_ha: false,
+                // unit: false,
                 priceharvest: false,
                 pricesale: false,
-                location: false,
+                location_lat: false,
+                location_lng: false,
 
+                helpsale: false,
                 contract: false
             }
         };
@@ -170,6 +179,14 @@ class DemandRegistrationForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    handleUserCheckbox (event) {
+        const name = event.target.name;
+        const value = event.target.checked;
+
+        this.setState(prevState => ({ demand :
+                {...prevState.demand, [name]: value}
+        }), () => { this.validateField(name, value) });
+    }
 
     handleUserInput (event) {
         const name = event.target.name;
@@ -313,8 +330,8 @@ class DemandRegistrationForm extends React.Component {
                     console.log('Phone prazdny');
                     return false;
                 }
-            case 'location':
-                this.state.validated.location = true;
+            case 'location_lng':
+                this.state.validated.location_lng = true;
                 if (value) {
                     this.setState(prevState => ({ errors :
                             {...prevState.errors, [fieldName]: null}
@@ -330,21 +347,38 @@ class DemandRegistrationForm extends React.Component {
                     console.log('Misto tezby prazdne');
                     return false;
                 }
-            case 'age':
-                this.state.validated.age = true;
+            case 'location_lat':
+                this.state.validated.location_lat = true;
                 if (value) {
                     this.setState(prevState => ({ errors :
                             {...prevState.errors, [fieldName]: null}
                     }));
-                    console.log('Age vyplnen');
+                    this.state.errors[fieldName] = null;
+                    console.log('Misto tezby vyplneno');
                     return true;
                 } else {
                     this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: 'Věk porostu musí být vyplněn. Alespoň orientačně.'}
+                            {...prevState.errors, [fieldName]: 'Místo těžby musí být vyplněno.'}
                     }));
-                    console.log('Age prazdny');
+                    this.state.errors[fieldName] = 'Místo těžby musí být vyplněno.';
+                    console.log('Misto tezby prazdne');
                     return false;
                 }
+            // case 'age':
+            //     this.state.validated.age = true;
+            //     if (value) {
+            //         this.setState(prevState => ({ errors :
+            //                 {...prevState.errors, [fieldName]: null}
+            //         }));
+            //         console.log('Age vyplnen');
+            //         return true;
+            //     } else {
+            //         this.setState(prevState => ({ errors :
+            //                 {...prevState.errors, [fieldName]: 'Věk porostu musí být vyplněn. Alespoň orientačně.'}
+            //         }));
+            //         console.log('Age prazdny');
+            //         return false;
+            //     }
             case 'type':
                 this.state.validated.type = true;
                 if (value) {
@@ -375,36 +409,36 @@ class DemandRegistrationForm extends React.Component {
             //         console.log('Typ prodeje prazdny');
             //         return false;
             //     }
-            case 'quantity':
-                this.state.validated.quantity = true;
-                if (value) {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: null}
-                    }));
-                    console.log('quantity vyplnen');
-                    return true;
-                } else {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: 'Objem musí být vyplněn, alespoň orientačně.'}
-                    }));
-                    console.log('quantity prazdny');
-                    return false;
-                }
-            case 'unit':
-                this.state.validated.unit = true;
-                if (value) {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: null}
-                    }));
-                    console.log('unit vyplnen');
-                    return true;
-                } else {
-                    this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: 'Jednotky objemu těžby musí být vyplněny.'}
-                    }));
-                    console.log('unit prazdny');
-                    return false;
-                }
+            // case 'quantity':
+            //     this.state.validated.quantity = true;
+            //     if (value) {
+            //         this.setState(prevState => ({ errors :
+            //                 {...prevState.errors, [fieldName]: null}
+            //         }));
+            //         console.log('quantity vyplnen');
+            //         return true;
+            //     } else {
+            //         this.setState(prevState => ({ errors :
+            //                 {...prevState.errors, [fieldName]: 'Objem musí být vyplněn, alespoň orientačně.'}
+            //         }));
+            //         console.log('quantity prazdny');
+            //         return false;
+            //     }
+            // case 'unit':
+            //     this.state.validated.unit = true;
+            //     if (value) {
+            //         this.setState(prevState => ({ errors :
+            //                 {...prevState.errors, [fieldName]: null}
+            //         }));
+            //         console.log('unit vyplnen');
+            //         return true;
+            //     } else {
+            //         this.setState(prevState => ({ errors :
+            //                 {...prevState.errors, [fieldName]: 'Jednotky objemu těžby musí být vyplněny.'}
+            //         }));
+            //         console.log('unit prazdny');
+            //         return false;
+            //     }
             case 'contract':
                 this.state.validated.contract = true;
                 if (value) {
@@ -420,6 +454,25 @@ class DemandRegistrationForm extends React.Component {
                     console.log('contract prazdny');
                     return false;
                 }
+            // case 'helpsale':
+            //     this.state.validated.helpsale = true;
+            //     if (value) {
+            //         this.setState(prevState => ({ errors :
+            //                 {...prevState.errors, [fieldName]: null}
+            //         }));
+            //         console.log('helpsale vyplnen');
+            //         return true;
+            //     } else {
+            //         this.setState(prevState => ({ validated :
+            //                 {...prevState.validated, [fieldName]: false}
+            //         }));
+            //         this.setState(prevState => ({ errors :
+            //                 {...prevState.errors, [fieldName]: null}
+            //         }));
+            //         console.log('helpsale prazdny');
+            //         return false;
+            //     }
+
             default:
                 return true;
         }
@@ -446,7 +499,8 @@ class DemandRegistrationForm extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.state.demand.location = document.getElementById("location").value;
+        this.state.demand.location_lat = document.getElementById("location_lat").value;
+        this.state.demand.location_lng = document.getElementById("location_lng").value;
         let demandForm = this.state.demand;
         let form_valid = true;
 
@@ -596,7 +650,7 @@ class DemandRegistrationForm extends React.Component {
                 <h3>Údaje o lese</h3>
                 <div className="row form-group">
                     <div className="col-md-6 mb-3 mb-md-0">
-                        <label className="font-weight-bold" htmlFor="age">Věk porostu *</label>
+                        <label className="font-weight-bold" htmlFor="age">Věk porostu</label>
                         <input type="text" id="age" name="age" className={this.getClassname('age')}
                                placeholder="Věk porostu" onChange={(event) => this.handleUserInput(event)}/>
                         <div className="valid-feedback">
@@ -633,44 +687,81 @@ class DemandRegistrationForm extends React.Component {
 
                 <div className="row form-group">
                     <div className="col-md-6 mb-3 mb-md-0">
-                        <label className="font-weight-bold" htmlFor="quantity">Objem těžby *</label>
-                        <input type="text" id="quantity" name="quantity" className={this.getClassname('quantity')}
-                               placeholder="Objem těžby" onChange={(event) => this.handleUserInput(event)}/>
+                        <label className="font-weight-bold" htmlFor="priceharvest">Kolik nabízím za těžbu (maximálně)</label>
+                        <input type="text" id="priceharvest" name="priceharvest" className={this.getClassname('priceharvest')}
+                               placeholder="Cena těžby (za m3)" onChange={(event) => this.handleUserInput(event)}/>
                         <div className="valid-feedback">
                             Děkujeme za vyplnění
                         </div>
                         <div className="invalid-feedback">
-                            {this.state.errors.quantity}
+                            {this.state.errors.priceharvest}
                         </div>
                     </div>
+
                     <div className="col-md-6 mb-3 mb-md-0">
-                        <label className="font-weight-bold" htmlFor="unit">Jednotky *</label>
-                        <select id="unit" name="unit"
-                                className={this.getClassname('unit')}
-                                onChange={(event) => this.handleUserInput(event)}>
-                            <option value="" disabled selected>Zvolte jednotku množství</option>
-                            {this.state.units.map(option => {
-                                return (
-                                    <option
-                                        key={option.value}
-                                        value={option.value}
-                                        label={option.label}>{option.label}
-                                    </option>
-                                );
-                            })}
-                        </select>
+                        <label className="font-weight-bold" htmlFor="quantity">Odhadovaný objem těžby</label>
+                        <div className="input-group">
+                            <div className="input-group-prepend">
+                                <div className="input-group-text">m3</div>
+                            </div>
+                            <input type="text" id="quantity_m3" name="quantity_m3" className={this.getClassname('quantity_m3')}
+                                   placeholder="Odhadovaný objem těžby v m3" onChange={(event) => this.handleUserInput(event)}/>
+                        </div>
+                        <div className="input-group">
+                            <div className="input-group-prepend">
+                                <div className="input-group-text">ha</div>
+                            </div>
+                            <input type="text" id="quantity_ha" name="quantity_ha" className={this.getClassname('quantity_ha')}
+                                   placeholder="Odhadovaný objem těžby v ha" onChange={(event) => this.handleUserInput(event)}/>
+                        </div>
                         <div className="valid-feedback">
                             Děkujeme za vyplnění
                         </div>
                         <div className="invalid-feedback">
-                            {this.state.errors.unit}
+                            {this.state.errors.quantity_m3}
+                        </div>
+                    </div>
+                    {/*<div className="col-md-6 mb-3 mb-md-0">*/}
+                        {/*<label className="font-weight-bold" htmlFor="unit">Jednotky *</label>*/}
+                        {/*<select id="unit" name="unit"*/}
+                                {/*className={this.getClassname('unit')}*/}
+                                {/*onChange={(event) => this.handleUserInput(event)}>*/}
+                            {/*<option value="" disabled selected>Zvolte jednotku množství</option>*/}
+                            {/*{this.state.units.map(option => {*/}
+                                {/*return (*/}
+                                    {/*<option*/}
+                                        {/*key={option.value}*/}
+                                        {/*value={option.value}*/}
+                                        {/*label={option.label}>{option.label}*/}
+                                    {/*</option>*/}
+                                {/*);*/}
+                            {/*})}*/}
+                        {/*</select>*/}
+                        {/*<div className="valid-feedback">*/}
+                            {/*Děkujeme za vyplnění*/}
+                        {/*</div>*/}
+                        {/*<div className="invalid-feedback">*/}
+                            {/*{this.state.errors.unit}*/}
+                        {/*</div>*/}
+                    {/*</div>*/}
+                </div>
+
+                <div className="row form-group">
+                    <div className="col-md-12 mb-3 mb-md-0">
+                        <input type="checkbox" id="helpsale" name="helpsale" className={this.getClassnameCheckbox('helpsale')}
+                               onChange={(event) => this.handleUserCheckbox(event)}/>
+                        <label className="font-weight-bold form-check-label" htmlFor="helpsale">Chci pomoci s prodejem vytěženého dřeva</label>
+                        <div className="valid-feedback">
+                            Děkujeme, rádi Vám pomůžeme
+                        </div>
+                        <div className="invalid-feedback">
+                            {this.state.errors.helpsale}
                         </div>
                     </div>
                 </div>
 
-
-                <div className="row form-group">
-                    <div className="col-md-12 mb-3 mb-md-0">
+                <div className="row form-group" hidden={!this.state.demand.helpsale}>
+                    <div className="col-md-6 mb-3 mb-md-0">
                         <label className="font-weight-bold" htmlFor="saletype">Chcete pomoci s prodejem?</label>
                         <select id="saletype" name="saletype"
                                 className={this.getClassname('saletype')}
@@ -693,26 +784,11 @@ class DemandRegistrationForm extends React.Component {
                             {this.state.errors.saletype}
                         </div>
                     </div>
-                </div>
 
-                <div className="row form-group">
                     <div className="col-md-6 mb-3 mb-md-0">
-                        <label className="font-weight-bold" htmlFor="priceharvest">Kolik nabízím za těžbu (maximálně)</label>
-                        <input type="text" id="priceharvest" name="priceharvest" className={this.getClassname('priceharvest')}
-                               placeholder="Cena těžby (za m3)" onChange={(event) => this.handleUserInput(event)}
-                               disabled={this.state.demand.saletype === 'STOJ'}/>
-                        <div className="valid-feedback">
-                            Děkujeme za vyplnění
-                        </div>
-                        <div className="invalid-feedback">
-                            {this.state.errors.priceharvest}
-                        </div>
-                    </div>
-                    <div className="col-md-6 mb-3 mb-md-0">
-                        <label className="font-weight-bold" htmlFor="pricesale">Kolik požaduji při prodeji</label>
+                        <label className="font-weight-bold" htmlFor="pricesale">Kolik požaduji při prodeji za m3</label>
                         <input type="text" id="pricesale" name="pricesale" className={this.getClassname('pricesale')}
-                               placeholder="Cena za prodej (m3)" onChange={(event) => this.handleUserInput(event)}
-                               disabled={this.state.demand.saletype === ''}/>
+                               placeholder="Cena za prodej (m3)" onChange={(event) => this.handleUserInput(event)}/>
                         <div className="valid-feedback">
                             Děkujeme za vyplnění
                         </div>
@@ -725,14 +801,16 @@ class DemandRegistrationForm extends React.Component {
 
                 <div className="row form-group">
                     <div className="col-md-12 mb-3 mb-md-0">
-                        <label className="font-weight-bold" htmlFor="location">Místo těžby *</label>
-                        <input type="text" id="location" name="location" className={this.getClassname('location')}
+                        <label className="font-weight-bold" htmlFor="location_lng">Místo těžby *</label>
+                        <input type="text" id="location_lat" name="location_lat" className={this.getClassname('location_lat')}
+                               disabled={true} placeholder="Místo zvolíte kliknutím na mapu"/>
+                        <input type="text" id="location_lng" name="location_lng" className={this.getClassname('location_lng')}
                                disabled={true} placeholder="Místo zvolíte kliknutím na mapu"/>
                         <div className="valid-feedback">
                             Děkujeme za vyplnění
                         </div>
                         <div className="invalid-feedback">
-                            {this.state.errors.location}
+                            {this.state.errors.location_lng}
                         </div>
 
                         <div id="mapid" style={mapstyle}></div>
@@ -742,7 +820,7 @@ class DemandRegistrationForm extends React.Component {
                 <div className="row form-group">
                     <div className="col-md-12 mb-3 mb-md-0">
                         <input type="checkbox" id="contract" name="contract" className={this.getClassnameCheckbox('contract')}
-                               onChange={(event) => this.handleUserInput(event)}/>
+                               onChange={(event) => this.handleUserCheckbox(event)}/>
                         <label className="font-weight-bold form-check-label" htmlFor="contract">Souhlasím se smluvníma podmínkama serveru Můj les</label>
                         <div className="valid-feedback">
                             Děkujeme za souhlas
@@ -786,8 +864,10 @@ function onMapClick(e) {
 
     harvestmarker = L.marker(e.latlng).addTo(fullmap);
     harvestmarker.bindPopup("Místo k těžbě.").openPopup();
-    $('#location').val(e.latlng);
-    document.getElementById("location").className = "form-control is-valid";
+    $('#location_lat').val(e.latlng.lat);
+    $('#location_lng').val(e.latlng.lng);
+    document.getElementById("location_lat").className = "form-control is-valid";
+    document.getElementById("location_lng").className = "form-control is-valid";
 }
 
 fullmap.on('click', onMapClick);
