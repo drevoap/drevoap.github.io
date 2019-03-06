@@ -38,6 +38,25 @@
 
     <!-- Don't use this in production: -->
     <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
+    <!-- WhatsHelp.io widget -->
+    <script type="text/javascript">
+      (function () {
+        var options = {
+          whatsapp: "+420777111466", // WhatsApp number
+          messenger: "avi", // Facebook number
+          call_to_action: "Napište nám", // Call to action
+          button_color: "#A8CE50", // Color of button
+          position: "left", // Position may be 'right' or 'left'
+          order: "whatsapp,messenger", // Order of buttons
+        };
+        var proto = document.location.protocol, host = "whatshelp.io", url = proto + "//static." + host;
+        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
+        s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
+        var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+      })();
+    </script>
+    <!-- /WhatsHelp.io widget -->
   </head>
   <body>
   
@@ -60,8 +79,8 @@
 
             <div class="col-6 col-md-6 col-lg-2">
               <a href="index.html" class="d-flex align-items-center site-logo">
-                <span class="fl-bigmug-line-cube29 mr-3 cube-bg"></span>
-                <span>Harvester</span>
+                <span><img src="images/tree_POI_512x512.png" width="48"></span>
+                <span>Můj les</span>
               </a>
             </div>
 
@@ -76,7 +95,7 @@
                       </div>
                       <div class="d-none d-lg-block">
                         <span class="d-block text-gray-500 text-uppercase">24/7 Support</span>
-                        <span class="h6">+420 777 111 466</span>
+                        <span class="h6">+420 778 751 659</span>
                       </div>
                     </div>
                   </a>
@@ -91,7 +110,7 @@
                       </div>
                       <div class="d-none d-lg-block">
                         <span class="d-block text-gray-500 text-uppercase">Email</span>
-                        <span class="h6">info@harvestor.com</span>
+                        <span class="h6">info@mujles.cz</span>
                       </div>
                     </div>
                   </a>
@@ -222,15 +241,17 @@
             <div class="row mb-5">
               <div class="col-md-12"><h3 class="footer-heading mb-4">Czech Republic</h3></div>
               <div class="col-md-6">
-                <p>HAJICEK, s. r. o.
+
+                <p>Hubertova lesní, s. r. o.
                   <br/>
-                  Ortenovo náměstí 443/6
+                  Šatovský grunt, č. p. 152
                   <br/>
-                  170 00  PRAHA 7
+                  671 22  ŠATOV
                   <br/>
-                  IČ: 285 13 789
+                  IČ: 072 10 906
                   <br/>
-                  DIČ: CZ 285 13 789</p>
+                  DIČ: CZ 072 10 906</p>
+
               </div>
               <div class="col-md-6">
                 E-mail: info@mujles.cz
@@ -245,7 +266,9 @@
           <div class="col-md-12">
             <p>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy; <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All Rights Reserved | This template is made with <a href="https://colorlib.com" target="_blank" >Colorlib</a>
+
+              Copyright &copy; All Rights Reserved
+
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </p>
           </div>
