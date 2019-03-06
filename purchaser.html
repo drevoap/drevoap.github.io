@@ -38,6 +38,25 @@
 
     <!-- Don't use this in production: -->
     <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
+    <!-- WhatsHelp.io widget -->
+    <script type="text/javascript">
+      (function () {
+        var options = {
+          whatsapp: "+420777111466", // WhatsApp number
+          messenger: "avi", // Facebook number
+          call_to_action: "Napište nám", // Call to action
+          button_color: "#A8CE50", // Color of button
+          position: "left", // Position may be 'right' or 'left'
+          order: "whatsapp,messenger", // Order of buttons
+        };
+        var proto = document.location.protocol, host = "whatshelp.io", url = proto + "//static." + host;
+        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
+        s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
+        var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+      })();
+    </script>
+    <!-- /WhatsHelp.io widget -->
   </head>
   <body>
   
@@ -60,8 +79,8 @@
 
             <div class="col-6 col-md-6 col-lg-2">
               <a href="index.html" class="d-flex align-items-center site-logo">
-                <span class="fl-bigmug-line-cube29 mr-3 cube-bg"></span>
-                <span>Harvester</span>
+                <span><img src="images/tree_POI_512x512.png" width="48"></span>
+                <span>Můj les</span>
               </a>
             </div>
 
@@ -76,7 +95,7 @@
                       </div>
                       <div class="d-none d-lg-block">
                         <span class="d-block text-gray-500 text-uppercase">24/7 Support</span>
-                        <span class="h6">+420 777 111 466</span>
+                        <span class="h6">+420 778 751 659</span>
                       </div>
                     </div>
                   </a>
@@ -91,7 +110,7 @@
                       </div>
                       <div class="d-none d-lg-block">
                         <span class="d-block text-gray-500 text-uppercase">Email</span>
-                        <span class="h6">info@harvestor.com</span>
+                        <span class="h6">info@mujles.cz</span>
                       </div>
                     </div>
                   </a>
@@ -179,82 +198,77 @@
 
 
     
-    <footer class="site-footer">
+ <footer class="site-footer">
       <div class="container">
-        
+
 
         <div class="row">
           <div class="col-lg-7">
             <div class="row">
               <div class="col-6 col-md-4 col-lg-4 mb-5 mb-lg-0">
-                <h3 class="footer-heading mb-4">Company</h3>
+                <h3 class="footer-heading mb-4">Společnost</h3>
                 <ul class="list-unstyled">
-                  <li><a href="#">About</a></li>
-                  <li><a href="#">Services</a></li>
-                  <li><a href="#">Servers</a></li>
-                  <li><a href="#">Hosting</a></li>
-                  <li><a href="#">News</a></li>
-                  <li><a href="#">Careers</a></li>
+                  <li><a href="onas.html">O nás</a></li>
+                  <li><a href="obchodnipodminky.html">Obchodní podmínky</a></li>
+                  <li><a href="GDPR.html">Ochranna osobních údajů</a></li>
                 </ul>
               </div>
-              <div class="col-6 col-md-4 col-lg-4 mb-5 mb-lg-0">
-                <h3 class="footer-heading mb-4">Navigations</h3>
-                <ul class="list-unstyled">
-                  <li><a href="#">About</a></li>
-                  <li><a href="#">Services</a></li>
-                  <li><a href="#">Servers</a></li>
-                  <li><a href="#">Hosting</a></li>
-                  <li><a href="#">News</a></li>
-                  <li><a href="#">Careers</a></li>
-                </ul>
-              </div>
-              <div class="col-6 col-md-4 col-lg-4 mb-5 mb-lg-0">
-                <h3 class="footer-heading mb-4">Quick Menu</h3>
-                <ul class="list-unstyled">
-                  <li><a href="#">About</a></li>
-                  <li><a href="#">Services</a></li>
-                  <li><a href="#">Servers</a></li>
-                  <li><a href="#">Hosting</a></li>
-                  <li><a href="#">News</a></li>
-                  <li><a href="#">Careers</a></li>
-                </ul>
-              </div>
+              <!--<div class="col-6 col-md-4 col-lg-4 mb-5 mb-lg-0">-->
+                <!--<h3 class="footer-heading mb-4">Navigations</h3>-->
+                <!--<ul class="list-unstyled">-->
+                  <!--<li><a href="#">About</a></li>-->
+                  <!--<li><a href="#">Services</a></li>-->
+                  <!--<li><a href="#">Servers</a></li>-->
+                  <!--<li><a href="#">Hosting</a></li>-->
+                  <!--<li><a href="#">News</a></li>-->
+                  <!--<li><a href="#">Careers</a></li>-->
+                <!--</ul>-->
+              <!--</div>-->
+              <!--<div class="col-6 col-md-4 col-lg-4 mb-5 mb-lg-0">-->
+                <!--<h3 class="footer-heading mb-4">Quick Menu</h3>-->
+                <!--<ul class="list-unstyled">-->
+                  <!--<li><a href="#">About</a></li>-->
+                  <!--<li><a href="#">Services</a></li>-->
+                  <!--<li><a href="#">Servers</a></li>-->
+                  <!--<li><a href="#">Hosting</a></li>-->
+                  <!--<li><a href="#">News</a></li>-->
+                  <!--<li><a href="#">Careers</a></li>-->
+                <!--</ul>-->
+              <!--</div>-->
             </div>
           </div>
           <div class="col-lg-5">
             <div class="row mb-5">
-              <div class="col-md-12"><h3 class="footer-heading mb-4">Europe</h3></div>
+              <div class="col-md-12"><h3 class="footer-heading mb-4">Czech Republic</h3></div>
               <div class="col-md-6">
-                <p>London - 2398 <br> 10 Japson Street</p>    
+                <p>Hubertova lesní, s. r. o.
+                  <br/>
+                  Šatovský grunt, č. p. 152
+                  <br/>
+                  671 22  ŠATOV
+                  <br/>
+                  IČ: 072 10 906
+                  <br/>
+                  DIČ: CZ 072 10 906</p>
               </div>
               <div class="col-md-6">
-                Tel. + (123) 3240-345-9348 <br>
-                Mail. europe@youdomain.com
+                E-mail: info@mujles.cz
+                <br/>
+                Tel.: +420 777 111 466
               </div>
             </div>
 
-            <div class="row">
-              <div class="col-md-12"><h3 class="footer-heading mb-4">USA</h3></div>
-              <div class="col-md-6">
-                <p>New York - 2398 <br> 10 Hadson Carl Street</p>    
-              </div>
-              <div class="col-md-6">
-                Tel. + (123) 3240-345-9348 <br>
-                Mail. usa@youdomain.com
-              </div>
-            </div>
-            
           </div>
         </div>
-        <div class="row pt-5 mt-5 text-center">
+        <div class="row text-center">
           <div class="col-md-12">
             <p>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy; <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All Rights Reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
+              Copyright &copy; All Rights Reserved
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </p>
           </div>
-          
+
         </div>
       </div>
     </footer>
