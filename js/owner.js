@@ -341,9 +341,9 @@ class DemandRegistrationForm extends React.Component {
                     return true;
                 } else {
                     this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: 'Místo těžby musí být vyplněno.'}
+                            {...prevState.errors, [fieldName]: 'Místo těžby musí být vyplněno. Prosím zvolte místo kliknutím na mapě.'}
                     }));
-                    this.state.errors[fieldName] = 'Místo těžby musí být vyplněno.';
+                    this.state.errors[fieldName] = 'Místo těžby musí být vyplněno. Prosím zvolte místo kliknutím na mapě.';
                     console.log('Misto tezby prazdne');
                     return false;
                 }
@@ -358,9 +358,9 @@ class DemandRegistrationForm extends React.Component {
                     return true;
                 } else {
                     this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: 'Místo těžby musí být vyplněno.'}
+                            {...prevState.errors, [fieldName]: 'Místo těžby musí být vyplněno. Prosím zvolte místo kliknutím na mapě.'}
                     }));
-                    this.state.errors[fieldName] = 'Místo těžby musí být vyplněno.';
+                    this.state.errors[fieldName] = 'Místo těžby musí být vyplněno. Prosím zvolte místo kliknutím na mapě.';
                     console.log('Misto tezby prazdne');
                     return false;
                 }

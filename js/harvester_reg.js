@@ -349,9 +349,9 @@ class HarvesterRegistrationForm extends React.Component {
                     return true;
                 } else {
                     this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: 'Oblast zájmu musí být vyplněno.'}
+                            {...prevState.errors, [fieldName]: 'Oblast zájmu musí být vyplněno. Prosím zvolte oblast kliknutím na mapě.'}
                     }));
-                    this.state.errors[fieldName] = 'Oblast zájmu musí být vyplněno.';
+                    this.state.errors[fieldName] = 'Oblast zájmu musí být vyplněno. Prosím zvolte oblast kliknutím na mapě.';
                     console.log('Oblast zájmu prazdne');
                     return false;
                 }
@@ -366,9 +366,9 @@ class HarvesterRegistrationForm extends React.Component {
                     return true;
                 } else {
                     this.setState(prevState => ({ errors :
-                            {...prevState.errors, [fieldName]: 'Oblast zájmu musí být vyplněno.'}
+                            {...prevState.errors, [fieldName]: 'Oblast zájmu musí být vyplněno Prosím zvolte oblast kliknutím na mapě..'}
                     }));
-                    this.state.errors[fieldName] = 'Oblast zájmu musí být vyplněno.';
+                    this.state.errors[fieldName] = 'Oblast zájmu musí být vyplněno. Prosím zvolte oblast kliknutím na mapě.';
                     console.log('Oblast zájmu prazdne');
                     return false;
                 }
@@ -492,36 +492,86 @@ class HarvesterRegistrationForm extends React.Component {
                                              invalid={this.state.errors.fullname}
                                              classname={this.getClassname('fullname')}/>
 
-                <HarvesterRegistrationTextInput id={'street'} text={'Adresa - ulice a č.p.'} mandatory={true}
-                                             onchange={(event) => this.handleUserInput(event)}
-                                             valid={'Děkujeme za vyplnění'}
-                                             invalid={this.state.errors.street}
-                                             classname={this.getClassname('street')}/>
+                <div className="row form-group">
+                    <div className="col-md-6 mb-3 mb-md-0">
+                        <label className="font-weight-bold" htmlFor="street">Adresa - ulice a č.p. *</label>
+                        <input type="text" id="street" name="street" className={this.getClassname('street')}
+                               placeholder="Adresa - ulice a č.p." onChange={(event) => this.handleUserInput(event)}/>
+                        <div className="valid-feedback">
+                            Děkujeme za vyplnění
+                        </div>
+                        <div className="invalid-feedback">
+                            {this.state.errors.street}
+                        </div>
+                    </div>
+                    <div className="col-md-6 mb-3 mb-md-0">
+                        <label className="font-weight-bold" htmlFor="city">Adresa - město *</label>
+                        <input type="text" id="city" name="city" className={this.getClassname('city')}
+                               placeholder="Adresa - město" onChange={(event) => this.handleUserInput(event)}/>
+                        <div className="valid-feedback">
+                            Děkujeme za vyplnění
+                        </div>
+                        <div className="invalid-feedback">
+                            {this.state.errors.city}
+                        </div>
+                    </div>
+                </div>
+                <div className="row form-group">
+                    <div className="col-md-6 mb-3 mb-md-0">
+                        <label className="font-weight-bold" htmlFor="zip">Adresa - PSČ *</label>
+                        <input type="text" id="zip" name="zip" className={this.getClassname('zip')}
+                               placeholder="Adresa - PSČ" onChange={(event) => this.handleUserInput(event)}/>
+                        <div className="valid-feedback">
+                            Děkujeme za vyplnění
+                        </div>
+                        <div className="invalid-feedback">
+                            {this.state.errors.zip}
+                        </div>
+                    </div>
+                    <div className="col-md-6 mb-3 mb-md-0">
+                        <label className="font-weight-bold" htmlFor="country">Adresa - stát *</label>
+                        <select
+                            id="country" name="country"
+                            defaultValue="CZ"
+                            className={this.getClassname('country')}
+                            onChange={(event) => this.handleUserInput(event)}>
+                            {this.state.countries.map(option => {
+                                return (
+                                    <option
+                                        key={option.value}
+                                        value={option.value}
+                                        label={option.label}>{option.label}
+                                    </option>
+                                );
+                            })}
+                        </select>
+                    </div>
+                </div>
 
-                <HarvesterRegistrationTextInput id={'city'} text={'Adresa - město'} mandatory={true}
-                                             onchange={(event) => this.handleUserInput(event)}
-                                             valid={'Děkujeme za vyplnění'}
-                                             invalid={this.state.errors.city}
-                                             classname={this.getClassname('city')}/>
-
-                <HarvesterRegistrationTextInput id={'zip'} text={'Adresa - PSČ'} mandatory={true}
-                                             onchange={(event) => this.handleUserInput(event)}
-                                             valid={'Děkujeme za vyplnění'}
-                                             invalid={this.state.errors.zip}
-                                             classname={this.getClassname('zip')}/>
-
-                <HarvesterRegistrationSelectBox id={'country'} text={'Adresa - stát'} mandatory={true}
-                                             onchange={(event) => this.handleUserInput(event)}
-                                             classname={this.getClassname('country')}
-                                             options={this.state.countries}/>
-
-                <HarvesterRegistrationTextInput id={'ico'} text={'IČO'}
-                                             onchange={(event) => this.handleUserInput(event)}
-                                             classname={this.getClassname('ico')}/>
-
-                <HarvesterRegistrationTextInput id={'vat'} text={'DIČ'}
-                                             onchange={(event) => this.handleUserInput(event)}
-                                             classname={this.getClassname('vat')}/>
+                <div className="row form-group">
+                    <div className="col-md-6 mb-3 mb-md-0">
+                        <label className="font-weight-bold" htmlFor="ico">IČO</label>
+                        <input type="text" id="ico" name="ico" className={this.getClassname('ico')}
+                               placeholder="IČO" onChange={(event) => this.handleUserInput(event)}/>
+                        <div className="valid-feedback">
+                            Děkujeme za vyplnění
+                        </div>
+                        <div className="invalid-feedback">
+                            {this.state.errors.ico}
+                        </div>
+                    </div>
+                    <div className="col-md-6 mb-3 mb-md-0">
+                        <label className="font-weight-bold" htmlFor="vat">DIČ</label>
+                        <input type="text" id="vat" name="vat" className={this.getClassname('vat')}
+                               placeholder="DIČ" onChange={(event) => this.handleUserInput(event)}/>
+                        <div className="valid-feedback">
+                            Děkujeme za vyplnění
+                        </div>
+                        <div className="invalid-feedback">
+                            {this.state.errors.vat}
+                        </div>
+                    </div>
+                </div>
 
                 <h3>Kontaktní osoba</h3>
                 <HarvesterRegistrationTextInput id={'contact'} text={'Jméno osoby'} mandatory={true}
@@ -530,17 +580,30 @@ class HarvesterRegistrationForm extends React.Component {
                                              invalid={this.state.errors.contact}
                                              classname={this.getClassname('contact')}/>
 
-                <HarvesterRegistrationTextInput id={'phone'} text={'Telefon'} mandatory={true}
-                                             onchange={(event) => this.handleUserInput(event)}
-                                             valid={'Děkujeme za vyplnění'}
-                                             invalid={this.state.errors.phone}
-                                             classname={this.getClassname('phone')}/>
-
-                <HarvesterRegistrationTextInput id={'email'} text={'Email'} mandatory={true}
-                                             onchange={(event) => this.handleUserInput(event)}
-                                             valid={'Email validní. Děkujeme za vyplnění'}
-                                             invalid={this.state.errors.email}
-                                             classname={this.getClassname('email')}/>
+                <div className="row form-group">
+                    <div className="col-md-6 mb-3 mb-md-0">
+                        <label className="font-weight-bold" htmlFor="phone">Telefon *</label>
+                        <input type="text" id="phone" name="phone" className={this.getClassname('phone')}
+                               placeholder="Telefon" onChange={(event) => this.handleUserInput(event)}/>
+                        <div className="valid-feedback">
+                            Děkujeme za vyplnění
+                        </div>
+                        <div className="invalid-feedback">
+                            {this.state.errors.phone}
+                        </div>
+                    </div>
+                    <div className="col-md-6 mb-3 mb-md-0">
+                        <label className="font-weight-bold" htmlFor="email">Email *</label>
+                        <input type="text" id="email" name="email" className={this.getClassname('email')}
+                               placeholder="Email" onChange={(event) => this.handleUserInput(event)}/>
+                        <div className="valid-feedback">
+                            Email validní. Děkujeme za vyplnění
+                        </div>
+                        <div className="invalid-feedback">
+                            {this.state.errors.email}
+                        </div>
+                    </div>
+                </div>
 
 
                 <h3>Těžební stroj</h3>
