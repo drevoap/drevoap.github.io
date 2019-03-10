@@ -1,6 +1,6 @@
 
 const mapstyle = {
-    width: '635px',
+    width: '1015px',
     height: '400px'
 };
 
@@ -364,21 +364,6 @@ class DemandRegistrationForm extends React.Component {
                     console.log('Misto tezby prazdne');
                     return false;
                 }
-            // case 'age':
-            //     this.state.validated.age = true;
-            //     if (value) {
-            //         this.setState(prevState => ({ errors :
-            //                 {...prevState.errors, [fieldName]: null}
-            //         }));
-            //         console.log('Age vyplnen');
-            //         return true;
-            //     } else {
-            //         this.setState(prevState => ({ errors :
-            //                 {...prevState.errors, [fieldName]: 'Věk porostu musí být vyplněn. Alespoň orientačně.'}
-            //         }));
-            //         console.log('Age prazdny');
-            //         return false;
-            //     }
             case 'type':
                 this.state.validated.type = true;
                 if (value) {
@@ -394,51 +379,6 @@ class DemandRegistrationForm extends React.Component {
                     console.log('Typ porostu prazdny');
                     return false;
                 }
-            // case 'saletype':
-            //     this.state.validated.saletype = true;
-            //     if (value) {
-            //         this.setState(prevState => ({ errors :
-            //                 {...prevState.errors, [fieldName]: null}
-            //         }));
-            //         console.log('Typ prodeje vyplnen');
-            //         return true;
-            //     } else {
-            //         this.setState(prevState => ({ errors :
-            //                 {...prevState.errors, [fieldName]: 'Způsob prodeje musí být vyplněn.'}
-            //         }));
-            //         console.log('Typ prodeje prazdny');
-            //         return false;
-            //     }
-            // case 'quantity':
-            //     this.state.validated.quantity = true;
-            //     if (value) {
-            //         this.setState(prevState => ({ errors :
-            //                 {...prevState.errors, [fieldName]: null}
-            //         }));
-            //         console.log('quantity vyplnen');
-            //         return true;
-            //     } else {
-            //         this.setState(prevState => ({ errors :
-            //                 {...prevState.errors, [fieldName]: 'Objem musí být vyplněn, alespoň orientačně.'}
-            //         }));
-            //         console.log('quantity prazdny');
-            //         return false;
-            //     }
-            // case 'unit':
-            //     this.state.validated.unit = true;
-            //     if (value) {
-            //         this.setState(prevState => ({ errors :
-            //                 {...prevState.errors, [fieldName]: null}
-            //         }));
-            //         console.log('unit vyplnen');
-            //         return true;
-            //     } else {
-            //         this.setState(prevState => ({ errors :
-            //                 {...prevState.errors, [fieldName]: 'Jednotky objemu těžby musí být vyplněny.'}
-            //         }));
-            //         console.log('unit prazdny');
-            //         return false;
-            //     }
             case 'contract':
                 this.state.validated.contract = true;
                 if (value) {
@@ -454,24 +394,6 @@ class DemandRegistrationForm extends React.Component {
                     console.log('contract prazdny');
                     return false;
                 }
-            // case 'helpsale':
-            //     this.state.validated.helpsale = true;
-            //     if (value) {
-            //         this.setState(prevState => ({ errors :
-            //                 {...prevState.errors, [fieldName]: null}
-            //         }));
-            //         console.log('helpsale vyplnen');
-            //         return true;
-            //     } else {
-            //         this.setState(prevState => ({ validated :
-            //                 {...prevState.validated, [fieldName]: false}
-            //         }));
-            //         this.setState(prevState => ({ errors :
-            //                 {...prevState.errors, [fieldName]: null}
-            //         }));
-            //         console.log('helpsale prazdny');
-            //         return false;
-            //     }
 
             default:
                 return true;
@@ -576,36 +498,86 @@ class DemandRegistrationForm extends React.Component {
                                              invalid={this.state.errors.fullname}
                                              classname={this.getClassname('fullname')}/>
 
-                <DemandRegistrationTextInput id={'street'} text={'Adresa - ulice a č.p.'} mandatory={true}
-                                             onchange={(event) => this.handleUserInput(event)}
-                                             valid={'Děkujeme za vyplnění'}
-                                             invalid={this.state.errors.street}
-                                             classname={this.getClassname('street')}/>
+                <div className="row form-group">
+                    <div className="col-md-6 mb-3 mb-md-0">
+                        <label className="font-weight-bold" htmlFor="street">Adresa - ulice a č.p. *</label>
+                        <input type="text" id="street" name="street" className={this.getClassname('street')}
+                               placeholder="Adresa - ulice a č.p." onChange={(event) => this.handleUserInput(event)}/>
+                        <div className="valid-feedback">
+                            Děkujeme za vyplnění
+                        </div>
+                        <div className="invalid-feedback">
+                            {this.state.errors.street}
+                        </div>
+                    </div>
+                    <div className="col-md-6 mb-3 mb-md-0">
+                        <label className="font-weight-bold" htmlFor="city">Adresa - město *</label>
+                        <input type="text" id="city" name="city" className={this.getClassname('city')}
+                               placeholder="Adresa - město" onChange={(event) => this.handleUserInput(event)}/>
+                        <div className="valid-feedback">
+                            Děkujeme za vyplnění
+                        </div>
+                        <div className="invalid-feedback">
+                            {this.state.errors.city}
+                        </div>
+                    </div>
+                </div>
+                <div className="row form-group">
+                    <div className="col-md-6 mb-3 mb-md-0">
+                        <label className="font-weight-bold" htmlFor="zip">Adresa - PSČ *</label>
+                        <input type="text" id="zip" name="zip" className={this.getClassname('zip')}
+                               placeholder="Adresa - PSČ" onChange={(event) => this.handleUserInput(event)}/>
+                        <div className="valid-feedback">
+                            Děkujeme za vyplnění
+                        </div>
+                        <div className="invalid-feedback">
+                            {this.state.errors.zip}
+                        </div>
+                    </div>
+                    <div className="col-md-6 mb-3 mb-md-0">
+                        <label className="font-weight-bold" htmlFor="country">Adresa - stát *</label>
+                        <select
+                            id="country" name="country"
+                            defaultValue="CZ"
+                            className={this.getClassname('country')}
+                            onChange={(event) => this.handleUserInput(event)}>
+                            {this.state.countries.map(option => {
+                                return (
+                                    <option
+                                        key={option.value}
+                                        value={option.value}
+                                        label={option.label}>{option.label}
+                                    </option>
+                                );
+                            })}
+                        </select>
+                    </div>
+                </div>
 
-                <DemandRegistrationTextInput id={'city'} text={'Adresa - město'} mandatory={true}
-                                             onchange={(event) => this.handleUserInput(event)}
-                                             valid={'Děkujeme za vyplnění'}
-                                             invalid={this.state.errors.city}
-                                             classname={this.getClassname('city')}/>
-
-                <DemandRegistrationTextInput id={'zip'} text={'Adresa - PSČ'} mandatory={true}
-                                             onchange={(event) => this.handleUserInput(event)}
-                                             valid={'Děkujeme za vyplnění'}
-                                             invalid={this.state.errors.zip}
-                                             classname={this.getClassname('zip')}/>
-
-                <DemandRegistrationSelectBox id={'country'} text={'Adresa - stát'} mandatory={true}
-                                             onchange={(event) => this.handleUserInput(event)}
-                                             classname={this.getClassname('country')}
-                                             options={this.state.countries}/>
-
-                <DemandRegistrationTextInput id={'ico'} text={'IČO'}
-                                             onchange={(event) => this.handleUserInput(event)}
-                                             classname={this.getClassname('ico')}/>
-
-                <DemandRegistrationTextInput id={'vat'} text={'DIČ'}
-                                             onchange={(event) => this.handleUserInput(event)}
-                                             classname={this.getClassname('vat')}/>
+                <div className="row form-group">
+                    <div className="col-md-6 mb-3 mb-md-0">
+                        <label className="font-weight-bold" htmlFor="ico">IČO</label>
+                        <input type="text" id="ico" name="ico" className={this.getClassname('ico')}
+                               placeholder="IČO" onChange={(event) => this.handleUserInput(event)}/>
+                        <div className="valid-feedback">
+                            Děkujeme za vyplnění
+                        </div>
+                        <div className="invalid-feedback">
+                            {this.state.errors.ico}
+                        </div>
+                    </div>
+                    <div className="col-md-6 mb-3 mb-md-0">
+                        <label className="font-weight-bold" htmlFor="vat">DIČ</label>
+                        <input type="text" id="vat" name="vat" className={this.getClassname('vat')}
+                               placeholder="DIČ" onChange={(event) => this.handleUserInput(event)}/>
+                        <div className="valid-feedback">
+                            Děkujeme za vyplnění
+                        </div>
+                        <div className="invalid-feedback">
+                            {this.state.errors.vat}
+                        </div>
+                    </div>
+                </div>
 
                 <h3>Kontaktní osoba</h3>
                 <div className="row form-group">
@@ -634,17 +606,30 @@ class DemandRegistrationForm extends React.Component {
                     </div>
                 </div>
 
-                <DemandRegistrationTextInput id={'phone'} text={'Telefon'} mandatory={true}
-                                             onchange={(event) => this.handleUserInput(event)}
-                                             valid={'Děkujeme za vyplnění'}
-                                             invalid={this.state.errors.phone}
-                                             classname={this.getClassname('phone')}/>
-
-                <DemandRegistrationTextInput id={'email'} text={'Email'} mandatory={true}
-                                             onchange={(event) => this.handleUserInput(event)}
-                                             valid={'Email validní. Děkujeme za vyplnění'}
-                                             invalid={this.state.errors.email}
-                                             classname={this.getClassname('email')}/>
+                <div className="row form-group">
+                    <div className="col-md-6 mb-3 mb-md-0">
+                        <label className="font-weight-bold" htmlFor="phone">Telefon *</label>
+                        <input type="text" id="phone" name="phone" className={this.getClassname('phone')}
+                               placeholder="Telefon" onChange={(event) => this.handleUserInput(event)}/>
+                        <div className="valid-feedback">
+                            Děkujeme za vyplnění
+                        </div>
+                        <div className="invalid-feedback">
+                            {this.state.errors.phone}
+                        </div>
+                    </div>
+                    <div className="col-md-6 mb-3 mb-md-0">
+                        <label className="font-weight-bold" htmlFor="email">Email *</label>
+                        <input type="text" id="email" name="email" className={this.getClassname('email')}
+                               placeholder="Email" onChange={(event) => this.handleUserInput(event)}/>
+                        <div className="valid-feedback">
+                            Email validní. Děkujeme za vyplnění
+                        </div>
+                        <div className="invalid-feedback">
+                            {this.state.errors.email}
+                        </div>
+                    </div>
+                </div>
 
 
                 <h3>Údaje o lese</h3>
@@ -721,29 +706,6 @@ class DemandRegistrationForm extends React.Component {
                             {this.state.errors.quantity_m3}
                         </div>
                     </div>
-                    {/*<div className="col-md-6 mb-3 mb-md-0">*/}
-                        {/*<label className="font-weight-bold" htmlFor="unit">Jednotky *</label>*/}
-                        {/*<select id="unit" name="unit"*/}
-                                {/*className={this.getClassname('unit')}*/}
-                                {/*onChange={(event) => this.handleUserInput(event)}>*/}
-                            {/*<option value="" disabled selected>Zvolte jednotku množství</option>*/}
-                            {/*{this.state.units.map(option => {*/}
-                                {/*return (*/}
-                                    {/*<option*/}
-                                        {/*key={option.value}*/}
-                                        {/*value={option.value}*/}
-                                        {/*label={option.label}>{option.label}*/}
-                                    {/*</option>*/}
-                                {/*);*/}
-                            {/*})}*/}
-                        {/*</select>*/}
-                        {/*<div className="valid-feedback">*/}
-                            {/*Děkujeme za vyplnění*/}
-                        {/*</div>*/}
-                        {/*<div className="invalid-feedback">*/}
-                            {/*{this.state.errors.unit}*/}
-                        {/*</div>*/}
-                    {/*</div>*/}
                 </div>
 
                 <div className="row form-group">
