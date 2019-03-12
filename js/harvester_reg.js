@@ -820,9 +820,9 @@ class HarvesterRegistrationForm extends React.Component {
                     <div className="col-md-12 mb-3 mb-md-0">
                         <label className="font-weight-bold" htmlFor="location_lng">Střed oblasti zájmu *</label>
                         <input type="text" id="location_lat" name="location_lat" className={this.getClassname('location_lat')}
-                               disabled={true} placeholder="Místo zvolíte kliknutím na mapu"/>
+                               disabled={true} placeholder="Oblast zájmu o poptávky"/>
                         <input type="text" id="location_lng" name="location_lng" className={this.getClassname('location_lng')}
-                               disabled={true} placeholder="Místo zvolíte kliknutím na mapu"/>
+                               disabled={true} placeholder="Oblast zvolíte kliknutím na mapu"/>
                         <div className="valid-feedback">
                             Děkujeme za vyplnění
                         </div>

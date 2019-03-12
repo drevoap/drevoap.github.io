@@ -765,9 +765,9 @@ class DemandRegistrationForm extends React.Component {
                     <div className="col-md-12 mb-3 mb-md-0">
                         <label className="font-weight-bold" htmlFor="location_lng">Místo těžby *</label>
                         <input type="text" id="location_lat" name="location_lat" className={this.getClassname('location_lat')}
-                               disabled={true} placeholder="Místo zvolíte kliknutím na mapu"/>
+                               disabled={true} placeholder="Místo těžby zvolíte kliknutím na mapu"/>
                         <input type="text" id="location_lng" name="location_lng" className={this.getClassname('location_lng')}
-                               disabled={true} placeholder="Místo zvolíte kliknutím na mapu"/>
+                               disabled={true} placeholder="Souřadnice se doplní automaticky"/>
                         <div className="valid-feedback">
                             Děkujeme za vyplnění
                         </div>
@@ -783,7 +783,7 @@ class DemandRegistrationForm extends React.Component {
                     <div className="col-md-12 mb-3 mb-md-0">
                         <input type="checkbox" id="contract" name="contract" className={this.getClassnameCheckbox('contract')}
                                onChange={(event) => this.handleUserCheckbox(event)}/>
-                        <label className="font-weight-bold form-check-label" htmlFor="contract">Souhlasím se smluvníma podmínkama serveru Můj les</label>
+                        <label className="font-weight-bold form-check-label" htmlFor="contract">Souhlasím s <a href="/obchodnipodminky.html">obchodníma podmínkama</a> serveru Můj les</label>
                         <div className="valid-feedback">
                             Děkujeme za souhlas
                         </div>
