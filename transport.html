@@ -49,25 +49,6 @@
     <!-- Don't use this in production: -->
     <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
 
-    <!-- WhatsHelp.io widget -->
-    <script type="text/javascript">
-      (function () {
-        var options = {
-          whatsapp: "+420723601682", // WhatsApp number
-          messenger: "m.me", // Facebook number
-          call_to_action: "Napište nám", // Call to action
-          button_color: "#A8CE50", // Color of button
-          position: "left", // Position may be 'right' or 'left'
-          order: "whatsapp,messenger", // Order of buttons
-        };
-        var proto = document.location.protocol, host = "whatshelp.io", url = proto + "//static." + host;
-        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
-        s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
-        var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
-      })();
-    </script>
-    <!-- /WhatsHelp.io widget -->
-
   </head>
   <body>
   
@@ -97,21 +78,6 @@
 
             <div class="col-6 col-md-6 col-lg-10">
               <ul class="unit-4 ml-auto text-right">
-
-                <li class="text-left">
-                  <a href="#">
-                    <div class="d-flex align-items-center block-unit">
-                      <div class="icon mr-0 mr-md-4">
-                        <span class="fl-bigmug-line-headphones32 h3"></span>
-                      </div>
-                      <div class="d-none d-lg-block">
-                        <span class="d-block text-gray-500 text-uppercase">24/7 Support</span>
-                        <span class="h6">+420 723 601 682</span>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-
 
                 <li class="text-left">
                   <a href="#">
@@ -206,22 +172,7 @@
             <div class="row mb-5">
               <div class="col-md-12"><h3 class="footer-heading mb-4">Czech Republic</h3></div>
               <div class="col-md-6">
-
-                <p>Hubertova lesní, s. r. o.
-                  <br/>
-                  Šatovský grunt, č. p. 152
-                  <br/>
-                  671 22  ŠATOV
-                  <br/>
-                  IČ: 072 10 906
-                  <br/>
-                  DIČ: CZ 072 10 906</p>
-
-              </div>
-              <div class="col-md-6">
                 E-mail: info@mujles.cz
-                <br/>
-                Tel.: +420 777 111 466
               </div>
             </div>
 
